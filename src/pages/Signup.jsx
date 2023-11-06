@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Container, BodyWrapper, Body } from '../styles/global';
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from 'react';
