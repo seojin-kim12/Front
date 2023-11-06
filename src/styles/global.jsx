@@ -8,11 +8,12 @@ export const Container = styled.div`
     min-height: 100vh;
     position: relative;
     text-align: center;
-    background: linear-gradient(to bottom, #fdede2, #faf0ea);
+    background: linear-gradient(to bottom, #fff4ed, #fff9f6);
     background-size: cover;
     -ms-overflow-style: none;
     scrollbar-width: none;
     align-items: center;
+    font-family: Roboto;
 
     @media (hover: hover) {
         width: 390px;
