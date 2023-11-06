@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
 export const Container = styled.div`
     display: flex;
@@ -23,19 +22,16 @@ export const Container = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
-    `;
 
-export const BodyWrapper = styled.div`
-    min-height: calc(100vh - 145px);
-`;
-
-export const Body = styled.div`
-    .scrollbox {
-        overflow-y: scroll;
-        overflow-x: hidden;
-        &::-webkit-scrollbar {
-        width: 0;
-        background: transparent;
+    .body {
+        min-height: calc(100vh - 145px);
+        .scrollbox {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            &::-webkit-scrollbar {
+                width: 0;
+                background: transparent;
+            }
         }
     }
 `;
