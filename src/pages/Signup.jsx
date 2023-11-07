@@ -10,7 +10,7 @@ const Top = styled.div`
     display: flex;
     flex-direction: column;
     margin-right: auto;
-    margin-top: 5rem;
+    margin-top: 3.5rem;
     margin-left: 0.5rem;
 
     img {
@@ -29,10 +29,10 @@ const Top = styled.div`
 const Input = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     background-color: #fffaf7;
     width: 17.5rem;
-    height: 26rem;
+    height: 37rem;
     padding: 1rem 1.5rem;
     border-radius: 1.8rem;
     box-shadow: 0 5px 18px -7px #c9c9c9;
@@ -40,7 +40,7 @@ const Input = styled.div`
 
     p {
         text-align: left;
-        margin-top: 1.5rem;
+        margin-top: 1.3rem;
         margin-bottom: 0.5rem;
         font-weight: 650;
     }
@@ -53,6 +53,14 @@ const Input = styled.div`
         background-color: #fcf9f8;
         padding-left: 0.5rem;
         opacity: 0.6;
+    }
+
+    //번호 화살표 없애는 코드
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
     }
 
     button {
@@ -85,7 +93,9 @@ function Signup() {
     const [nickname, setNickname] = useState('');
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [rePassword, setRePassword] = useState('');
+    const [repassword, setRepassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
 
 
     return (
@@ -97,16 +107,23 @@ function Signup() {
                 </Top>
                 <Input>
                     <p>닉네임</p>
-                    <input type="text" value={nickname} placeholder='닉네임을 입력해주세요.' />
+                    <input type="text" value={nickname} placeholder='닉네임을 입력해주세요.' onChange={(e) => setNickname(e.target.value)} />
                     <button>중복확인</button>
                     <p>아이디</p>
-                    <input type="text" value={id} placeholder='아이디를 입력해주세요.' />
+                    <input type="text" value={id} placeholder='아이디를 입력해주세요.' onChange={(e) => setId(e.target.value)} />
                     <p>비밀번호</p>
-                    <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' />
+                    <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
                     <p>비밀번호 확인</p>
-                    <input type="passward" value={rePassword} placeholder='비밀번호를 한 번 더 입력해주세요.' />
+                    <input type="passward" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
+                    <p>이메일</p>
+                    <input type="email" value={email} placeholder='이메일을 입력해주세요.' onChange={(e) => setEmail(e.target.value)} />
+                    <p>전화번호</p>
+                    <input type="number" value={phone} placeholder='전화번호를 입력해주세요.' onChange={(e) => setPhone(e.target.value)} />
+                    <button>인증</button>
                 </Input>
-                <Button>회원가입</Button>
+                <Link to={'/login'}>
+                    <Button>회원가입</Button>
+                </Link>
             </Container>
         </motion.div>
     );
