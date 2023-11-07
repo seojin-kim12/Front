@@ -10,7 +10,7 @@ const Top = styled.div`
     display: flex;
     flex-direction: column;
     margin-right: auto;
-    margin-top: 3.5rem;
+    margin-top: 4rem;
     margin-left: 0.5rem;
 
     img {
@@ -32,7 +32,7 @@ const Input = styled.div`
     margin-top: 1rem;
     background-color: #fffaf7;
     width: 17.5rem;
-    height: 37rem;
+    height: 33rem;
     padding: 1rem 1.5rem;
     border-radius: 1.8rem;
     box-shadow: 0 5px 18px -7px #c9c9c9;
@@ -94,7 +94,6 @@ function Signup() {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRepassword] = useState('');
-    const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
 
@@ -115,8 +114,6 @@ function Signup() {
                     <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
                     <p>비밀번호 확인</p>
                     <input type="passward" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
-                    <p>이메일</p>
-                    <input type="email" value={email} placeholder='이메일을 입력해주세요.' onChange={(e) => setEmail(e.target.value)} />
                     <p>전화번호</p>
                     <input type="number" value={phone} placeholder='전화번호를 입력해주세요.' onChange={(e) => setPhone(e.target.value)} />
                     <button>인증</button>
