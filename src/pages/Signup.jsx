@@ -9,9 +9,11 @@ import logo from '../assets/logo.png'
 const Top = styled.div`
     display: flex;
     flex-direction: column;
-    margin-right: auto;
-    margin-top: 4rem;
+    margin-right: 5rem;
+    margin-top: 3rem;
     margin-left: 0.5rem;
+    width: 17.5rem;
+    text-align: left;
 
     img {
         width: 8.8rem;
@@ -20,7 +22,7 @@ const Top = styled.div`
 
     p {
         margin: 0;
-        padding-left: 1rem;
+        padding-left: 1.5rem;
         font-size: 1.5rem;
         font-weight: 650;
     }
