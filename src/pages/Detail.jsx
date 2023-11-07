@@ -211,6 +211,8 @@ const Amount = styled.div`
     .minus{
         width: 12px;
         height: 1px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
 `
 
