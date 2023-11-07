@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import lineseed from '../font/LINESeedKR-Rg.ttf'
 
 export const Container = styled.div`
+    @font-face {
+        font-family: 'lineseed';
+        src: local('lineseed'), local('lineseed');
+        font-style: normal;
+        src: url(${lineseed}) format('truetype');
+    }
+
+    font-family: lineseed;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -13,18 +22,18 @@ export const Container = styled.div`
     -ms-overflow-style: none;
     scrollbar-width: none;
     align-items: center;
-    font-family: Roboto;
     overflow-x: hidden;
 
+
     @media (hover: hover) {
-        width: 100%;
+        width: 390px;
         margin: 0 auto;
     }
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
     .body {
         min-height: calc(100vh - 145px);
         .scrollbox {
@@ -36,5 +45,4 @@ export const Container = styled.div`
         }
         }
     }
-  }
 `;

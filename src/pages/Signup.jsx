@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import logo from '../assets/logo.png'
+import clearlogo from '../assets/clear logo.png'
 
 const Top = styled.div`
     display: flex;
@@ -22,7 +23,7 @@ const Top = styled.div`
 
     p {
         margin: 0;
-        padding-left: 1.5rem;
+        padding-left: 2rem;
         font-size: 1.5rem;
         font-weight: 650;
     }
@@ -40,16 +41,24 @@ const Input = styled.div`
     box-shadow: 0 5px 18px -7px #c9c9c9;
     font-weight: 600;
 
+    img {
+        position: absolute;
+        right: 1rem; /* 원하는 위치로 조정 */
+        top: 1rem; /* 원하는 위치로 조정 */
+        z-index: -1;
+    }
+
     p {
         text-align: left;
-        margin-top: 1.3rem;
-        margin-bottom: 0.5rem;
+        margin-top: 1.6rem;
+        margin-bottom: 0.2rem;
         font-weight: 650;
+        padding-left: 0.3rem;
     }
 
     input {
         width: 16.5rem;
-        height: 2rem;
+        height: 1.8rem;
         border-radius: 0.5rem;
         border: 1px solid #444444;
         background-color: #fcf9f8;
@@ -107,6 +116,7 @@ function Signup() {
                     <p>회원가입</p>
                 </Top>
                 <Input>
+                    <img src={clearlogo} alt="" />
                     <p>닉네임</p>
                     <input type="text" value={nickname} placeholder='닉네임을 입력해주세요.' onChange={(e) => setNickname(e.target.value)} />
                     <button>중복확인</button>

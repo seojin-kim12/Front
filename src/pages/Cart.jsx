@@ -12,7 +12,7 @@ const Header = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
 
     img {
         margin-left: 2.7rem;
