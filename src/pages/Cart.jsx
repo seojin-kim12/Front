@@ -26,8 +26,8 @@ function Cart() {
             <Container>
                 <Header>
                     <img src={back} alt="back" />
-                    <img src={logo} alt="Bver" />
-                    <img src={cart} alt="cart" />
+                    <Link to={'/'}><img src={logo} alt="Bver" /></Link>
+                    <Link to={'/cart'}><img src={cart} alt="cart" /></Link>
                 </Header>
             </Container>
         </motion.div>

@@ -12,7 +12,76 @@ import storelogo from '../assets/storelogo.svg'
 import heart from '../assets/heart.png'
 import choco from '../assets/초코소라빵.png'
 import arrow from '../assets/arrow.png'
+import minus from '../assets/minus.png'
+import plus from '../assets/plus.png'
 
+function Detail() {
+    // 수량 
+    const [nums, setNums] = useState([1, 1, 1, 1]);
+
+    const handleMinusClick = (index) => {
+        if (nums[index] > 1) {
+            const newNums = [...nums];
+            newNums[index] = nums[index] - 1;
+            setNums(newNums);
+        }
+    };
+
+    const handlePlusClick = (index) => {
+        const newNums = [...nums];
+        newNums[index] = nums[index] + 1;
+        setNums(newNums);
+    };
+
+    return (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <Container>
+                <Header>
+                    <img src={back} alt="back" />
+                    <Link to={'/'}><img src={logo} alt="Bver" /></Link>
+                    <Link to={'/cart'}><img src={cart} alt="cart" /></Link>
+                </Header>
+
+                <Banner>
+                    <img src={banner} alt="banners" />
+                </Banner>
+
+                <StoreInfo>
+                    <div>
+                        <img src={storelogo} alt="파바" />
+                        <span>파리바게트</span>
+                        <img className='heart' src={heart} alt="heart" />
+                    </div>
+                    <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
+                </StoreInfo>
+
+                <Breads>
+                    {nums.map((num, index) => (
+                        <Bread key={index}>
+                            <img src={choco} alt="bread" />
+                            <p>초코소라빵</p>
+                            <p className='num'>남은 수량: 2개</p>
+                            <div>
+                                <span>2,000원</span>
+                                <img className='arrow' src={arrow} alt="" />
+                                <span>1,500원</span>
+                            </div>
+                            <Amount>
+                                <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
+                                <p>{num}</p>
+                                <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
+                            </Amount>
+                        </Bread>
+                    ))}
+                </Breads>
+
+                <Link to={'/cart'}><Reservation>예약하기</Reservation></Link>
+            </Container>
+        </motion.div>
+    );
+}
+
+export default Detail;
 
 const Header = styled.header`
     display: flex;
@@ -80,19 +149,24 @@ const StoreInfo = styled.div`
 
 const Breads = styled.div`
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 `
 
 const Bread = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #fff9f5;
-    width: 9.5rem;
-    height: 13.5rem;
-    margin: 1rem 1rem;
-    padding: 1rem 0;
+    width: 9.7rem;
+    height: 14.5rem;
+    margin: 0.4rem 0.7rem;
+    padding: 0.8rem 0;
     border-radius: 1rem;
 
     img {
-        width: 9rem;
-        height: 8.7rem;
+        width: 8.3rem;
+        height: 8rem;
     }
 
     p {
@@ -103,7 +177,7 @@ const Bread = styled.div`
 
     .num {
         font-size: 0.7rem;
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.5rem;
     }
 
     .arrow {
@@ -117,46 +191,39 @@ const Bread = styled.div`
     }
 `
 
-function Detail() {
-    return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <Container>
-                <Header>
-                    <img src={back} alt="back" />
-                    <img src={logo} alt="Bver" />
-                    <img src={cart} alt="cart" />
-                </Header>
-                <Banner>
-                    <img src={banner} alt="banners" />
-                </Banner>
-                <StoreInfo>
-                    <div>
-                        <img src={storelogo} alt="파바" />
-                        <span>파리바게트</span>
-                        <img className='heart' src={heart} alt="heart" />
-                    </div>
-                    <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
-                </StoreInfo>
-                <Breads>
-                    <Bread>
-                        <img src={choco} alt="bread" />
-                        <p>초코소라빵</p>
-                        <p className='num'>남은 수량:2개</p>
-                        <span>2,000원</span>
-                        <img className='arrow' src={arrow} alt="" />
-                        <span>1,500원</span>
-                    </Bread>
-                    <Bread>
-                        <img src={choco} alt="bread" />
-                        <p>초코소라빵</p>
-                        <p className='num'>남은 수량:2개</p>
-                        <span>2,000원</span>
-                        <img className='arrow' src={arrow} alt="" />
-                        <span>1,500원</span>
-                    </Bread>
-                </Breads>
-            </Container>
-        </motion.div>
-    );
-};
-export default Detail;
+const Amount = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #a5a5a5;
+    border-radius: 1rem;
+    width: 8rem;
+    height: 1.7rem;
+    margin-top: 0.5rem;
+    padding-top: 0.3rem;
+
+    img {
+        width: 10px;
+        height: 10px;
+        padding: 0 1.5rem;
+    }
+
+    .minus{
+        width: 12px;
+        height: 1px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+`
+
+const Reservation = styled.button`
+    margin: 2rem;
+    width: 17rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 550;
+    border-radius: 0.8rem;
+    border: 1px solid #a5a5a5;
+    background-color: #e08644;
+    box-shadow: 0 5px 18px -7px #838383;
+`
