@@ -7,6 +7,53 @@ import styled from "styled-components";
 import logo from '../assets/logo.png'
 import clearlogo from '../assets/clear logo.png'
 
+function Signup() {
+    const navigate = useNavigate();
+
+    const [nickname, setNickname] = useState('');
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+    const [repassword, setRepassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [showNicknameMessage, setShowNicknameMessage] = useState(false);
+
+    return (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <Container>
+                <Top>
+                    <img src={logo} alt="Bver" />
+                    <p>회원가입</p>
+                </Top>
+                <Input>
+                    <img src={clearlogo} alt="" />
+                    <p>닉네임</p>
+                    <input type="text" value={nickname} placeholder='닉네임을 입력해주세요.' onChange={(e) => setNickname(e.target.value)} />
+                    <div>
+                        <button onClick={() => setShowNicknameMessage(true)}>중복확인</button>
+                        {showNicknameMessage && (
+                            <p className='message'>사용 가능한 닉네임입니다.</p>
+                        )}
+                    </div>
+                    <p>아이디</p>
+                    <input type="text" value={id} placeholder='아이디를 입력해주세요.' onChange={(e) => setId(e.target.value)}
+                        onClick={() => setShowNicknameMessage(false)} />
+                    <p>비밀번호</p>
+                    <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
+                    <p>비밀번호 확인</p>
+                    <input type="passward" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
+                    <p>전화번호</p>
+                    <input type="number" value={phone} placeholder='전화번호를 입력해주세요.' onChange={(e) => setPhone(e.target.value)} />
+                    <button>인증</button>
+                </Input>
+                <Link to={'/login'}>
+                    <Button>회원가입</Button>
+                </Link>
+            </Container>
+        </motion.div>
+    );
+};
+export default Signup;
+
 const Top = styled.div`
     display: flex;
     flex-direction: column;
@@ -84,6 +131,18 @@ const Input = styled.div`
         font-weight: 500;
         background-color: #fffaf9;
     }
+
+    div {
+        display: flex;
+        align-items: center;
+    }
+
+    .message {
+        margin: 0;
+        margin-top: 0.75rem;
+        font-size: 0.7rem;
+        padding-left: 0.5rem;
+    }
 `
 
 const Button = styled.button`
@@ -97,44 +156,3 @@ const Button = styled.button`
     background-color: #e08644;
     box-shadow: 0 5px 18px -7px #838383;
 `
-
-function Signup() {
-    const navigate = useNavigate();
-
-    const [nickname, setNickname] = useState('');
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
-    const [repassword, setRepassword] = useState('');
-    const [phone, setPhone] = useState('');
-
-
-    return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <Container>
-                <Top>
-                    <img src={logo} alt="Bver" />
-                    <p>회원가입</p>
-                </Top>
-                <Input>
-                    <img src={clearlogo} alt="" />
-                    <p>닉네임</p>
-                    <input type="text" value={nickname} placeholder='닉네임을 입력해주세요.' onChange={(e) => setNickname(e.target.value)} />
-                    <button>중복확인</button>
-                    <p>아이디</p>
-                    <input type="text" value={id} placeholder='아이디를 입력해주세요.' onChange={(e) => setId(e.target.value)} />
-                    <p>비밀번호</p>
-                    <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
-                    <p>비밀번호 확인</p>
-                    <input type="passward" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
-                    <p>전화번호</p>
-                    <input type="number" value={phone} placeholder='전화번호를 입력해주세요.' onChange={(e) => setPhone(e.target.value)} />
-                    <button>인증</button>
-                </Input>
-                <Link to={'/login'}>
-                    <Button>회원가입</Button>
-                </Link>
-            </Container>
-        </motion.div>
-    );
-};
-export default Signup;                   
