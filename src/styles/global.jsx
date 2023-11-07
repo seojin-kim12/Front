@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -21,10 +21,10 @@ export const Container = styled.div`
         margin: 0 auto;
     }
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
     .body {
         min-height: calc(100vh - 145px);
         .scrollbox {
@@ -36,4 +36,5 @@ export const Container = styled.div`
         }
         }
     }
+  }
 `;
