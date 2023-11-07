@@ -8,15 +8,16 @@ export const Container = styled.div`
     min-height: 100vh;
     position: relative;
     text-align: center;
-    background: linear-gradient(to bottom, #fff4ed, #fff9f6);
+    background: linear-gradient(to bottom, #fff4ed, #ffd9b3);
     background-size: cover;
     -ms-overflow-style: none;
     scrollbar-width: none;
     align-items: center;
     font-family: Roboto;
+    overflow-x: hidden;
 
     @media (hover: hover) {
-        width: 390px;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -27,12 +28,12 @@ export const Container = styled.div`
     .body {
         min-height: calc(100vh - 145px);
         .scrollbox {
-            overflow-y: scroll;
-            overflow-x: hidden;
-            &::-webkit-scrollbar {
-                width: 0;
-                background: transparent;
-            }
+        overflow-y: scroll;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
         }
     }
 `;
