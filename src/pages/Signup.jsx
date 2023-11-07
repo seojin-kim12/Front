@@ -21,7 +21,7 @@ function Signup() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <Container>
                 <Top>
-                    <img src={logo} alt="Bver" />
+                    <Link to={'/'}><img src={logo} alt="Bver" /></Link>
                     <p>회원가입</p>
                 </Top>
                 <Input>

@@ -80,6 +80,7 @@ const StoreInfo = styled.div`
 
 const Breads = styled.div`
     display: flex;
+    flex-wrap: wrap;
 `
 
 const Bread = styled.div`
@@ -123,8 +124,8 @@ function Detail() {
             <Container>
                 <Header>
                     <img src={back} alt="back" />
-                    <img src={logo} alt="Bver" />
-                    <img src={cart} alt="cart" />
+                    <Link to={'/'}><img src={logo} alt="Bver" /></Link>
+                    <Link to={'/cart'}><img src={cart} alt="cart" /></Link>
                 </Header>
                 <Banner>
                     <img src={banner} alt="banners" />
@@ -138,6 +139,22 @@ function Detail() {
                     <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
                 </StoreInfo>
                 <Breads>
+                    <Bread>
+                        <img src={choco} alt="bread" />
+                        <p>초코소라빵</p>
+                        <p className='num'>남은 수량:2개</p>
+                        <span>2,000원</span>
+                        <img className='arrow' src={arrow} alt="" />
+                        <span>1,500원</span>
+                    </Bread>
+                    <Bread>
+                        <img src={choco} alt="bread" />
+                        <p>초코소라빵</p>
+                        <p className='num'>남은 수량:2개</p>
+                        <span>2,000원</span>
+                        <img className='arrow' src={arrow} alt="" />
+                        <span>1,500원</span>
+                    </Bread>
                     <Bread>
                         <img src={choco} alt="bread" />
                         <p>초코소라빵</p>
