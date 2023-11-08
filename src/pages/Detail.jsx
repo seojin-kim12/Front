@@ -52,6 +52,7 @@ function Detail() {
                         <span>파리바게트</span>
                         <img className='heart' src={heart} alt="heart" />
                     </div>
+                    <p>운영시간 : 매일 오전 10:00 ~ 오후 9:00</p>
                     <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
                 </StoreInfo>
 
@@ -112,10 +113,9 @@ const StoreInfo = styled.div`
         text-align: left;
         width: 20.5rem;
         margin: 0;
-        margin-top: 0.7rem;
+        margin-top: 0.3rem;
         font-size: 0.8rem;
         font-weight: 545;
-        margin-bottom: 1rem;
         color: #3d3d3d;
         padding-left: 2rem;
     }
@@ -126,6 +126,7 @@ const StoreInfo = styled.div`
         padding-top: 1rem;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 0.5rem;
         span {
             margin-left: 0.5rem;
             font-size: 1.3rem;
@@ -151,6 +152,7 @@ const Breads = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 0.8rem;
 `
 
 const Bread = styled.div`
@@ -158,8 +160,8 @@ const Bread = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #fff9f5;
-    width: 9.7rem;
-    height: 14.5rem;
+    width: 9.5rem;
+    height: 14rem;
     margin: 0.4rem 0.7rem;
     padding: 0.8rem 0;
     border-radius: 1rem;
@@ -171,12 +173,13 @@ const Bread = styled.div`
 
     p {
         margin: 0;
-        font-size: 1.1rem;
+        font-size: 0.8rem;
         font-weight: 600;
     }
 
     .num {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
+        margin-top: 0.2rem;
         margin-bottom: 0.5rem;
     }
 
@@ -186,6 +189,7 @@ const Bread = styled.div`
     }
 
     span {
+        font-size: 0.8rem;
         font-weight: 600;
         margin: 0 0.2rem;
     }
@@ -197,15 +201,19 @@ const Amount = styled.div`
     align-items: center;
     border: 1px solid #a5a5a5;
     border-radius: 1rem;
-    width: 8rem;
-    height: 1.7rem;
+    width: 7rem;
+    height: 1.4rem;
     margin-top: 0.5rem;
     padding-top: 0.3rem;
+
+    p {
+        font-size: 1rem;
+    }
 
     img {
         width: 10px;
         height: 10px;
-        padding: 0 1.5rem;
+        padding: 0.5rem 1.5rem;
     }
 
     .minus{
