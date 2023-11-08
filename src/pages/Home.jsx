@@ -12,6 +12,7 @@ import bv from "../assets/bv.png";
 const Top = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 1.6rem;
   margin-left: -250px;
 
   img {
@@ -167,20 +168,21 @@ const PostBox = styled.div`
   height: 80px;
   border-radius: 10px;
   margin-top: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 4px rgba(107, 107, 107, 0.2);
 `;
 
 const PostImg = styled.div`
   position: relative;
   width: 80px;
   height: 80px;
-  border-radius: 10px 5px 5px 10px;
+  border-radius: 10px 0px 0px 10px;
   overflow: hidden;
 `;
 
 const ScrollBox = styled.div`
-  width: 360px;
+  width: 350px;
   height: 255px;
+  margin-top: 0.2rem;
   overflow-y: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
@@ -193,24 +195,22 @@ const ScrollBox = styled.div`
 
 const Name = styled.div`
   position: relative;
-  top: -70px;
+  top: -60px;
   left: 95px;
-  color: #ff7b00;
-  font-family: SUIT;
-  font-size: 23px;
+  color: #000000;
+  font-size: 18px;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
   text-align: left;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  //text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 `;
 
 const Address = styled.div`
   position: relative;
-  top: -65px;
+  top: -56px;
   left: 95px;
   color: black;
-  font-family: SUIT;
   font-size: 12px;
   font-style: normal;
   line-height: normal;
@@ -231,7 +231,7 @@ const HeartBox = styled.div`
   width: 150px;
   height: 200px;
   border-radius: 10px;
-  margin-left: 15px;
+  margin-left: 20px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 `;
 
@@ -272,36 +272,37 @@ const HeartName = styled.div`
 //하단 바
 const BottomBar = styled.div`
   background-color: rgba(255, 140, 0, 0.8);
-  height: 75px;
+  height: 53px;
   width: 100%;
-  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
-  margin-top: auto; /* Push the bar to the bottom using auto margin. */
+  box-shadow: 0px -4px 6px rgba(88, 88, 88, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
+  margin-top: 1.3rem;
+  bottom: 0;
 `;
 
 const BottomName = styled.div`
   margin-top: -5px;
   margin-left: -265px;
   img {
-    width: 100px;
+    width: 70px;
   }
 `;
 
 const Content = styled.div`
   position: relative;
-  margin-top: -60px;
-  margin-left: 70px;
+  margin-top: -45px;
+  margin-left: 25px;
   color: #fff;
-  font-size: 20px;
-  font-weight: 650;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 15px;
+  font-weight: 550;
+  text-shadow: 2px 2px 4px rgba(83, 83, 83, 0.5);
 `;
 
 const Content2 = styled.div`
   position: relative;
-  margin-top: 5px;
-  margin-left: 50px;
+  margin-top: 3px;
+  margin-left: 25px;
   color: #fff;
-  font-size: 13px;
+  font-size: 11px;
 `;
 
 function Home() {

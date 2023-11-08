@@ -25,7 +25,6 @@ function Signup() {
                     <p>회원가입</p>
                 </Top>
                 <Input>
-                    <img src={clearlogo} alt="" />
                     <p>닉네임</p>
                     <input type="text" value={nickname} placeholder='닉네임을 입력해주세요.' onChange={(e) => setNickname(e.target.value)} />
                     <div>
@@ -88,12 +87,6 @@ const Input = styled.div`
     box-shadow: 0 5px 18px -7px #c9c9c9;
     font-weight: 600;
 
-    img {
-        position: absolute;
-        right: 1rem; /* 원하는 위치로 조정 */
-        top: 1rem; /* 원하는 위치로 조정 */
-        z-index: -1;
-    }
 
     p {
         text-align: left;
@@ -155,4 +148,5 @@ const Button = styled.button`
     border: 1px solid #a5a5a5;
     background-color: #e08644;
     box-shadow: 0 5px 18px -7px #838383;
+    margin-bottom: 3rem;
 `
