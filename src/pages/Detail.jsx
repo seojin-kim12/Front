@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Container } from '../styles/global';
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import back from '../assets/back.png'
@@ -17,10 +17,10 @@ import plus from '../assets/plus.png'
 
 function Detail() {
     // 수량 
-    const [nums, setNums] = useState([1, 1, 1, 1]);
+    const [nums, setNums] = useState([0, 0, 0, 0]);
 
     const handleMinusClick = (index) => {
-        if (nums[index] > 1) {
+        if (nums[index] > 0) {
             const newNums = [...nums];
             newNums[index] = nums[index] - 1;
             setNums(newNums);
@@ -32,6 +32,10 @@ function Detail() {
         newNums[index] = nums[index] + 1;
         setNums(newNums);
     };
+
+    // 모달
+    const [modalOpen, setModalOpen] = useState(false);
+    const modalBackground = useRef();
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -76,13 +80,73 @@ function Detail() {
                     ))}
                 </Breads>
 
-                <Link to={'/cart'}><Reservation>예약하기</Reservation></Link>
+                <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
+
+                {
+                    modalOpen &&
+                    <Modal ref={modalBackground} onClick={e => {
+                        if (e.target === modalBackground.current) {
+                            setModalOpen(false);
+                        }
+                    }}>
+                        <div>
+                            <Link to={'/'}><button onClick={() => setModalOpen(false)}>X</button></Link>
+                            <h3>예약 완료</h3>
+                            <p className='time'>15분 후</p>
+                            <p>매장에 방문해주시길 바랍니다.</p>
+                        </div>
+                    </Modal>
+                }
+
             </Container>
         </motion.div>
     );
 }
 
 export default Detail;
+
+const Modal = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+
+    div {
+        background-color: #fff9f5;
+        width: 250px;
+        height: 150px;
+        padding: 5px;
+        border-radius: 0.5rem;
+    }
+
+    h3 {
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    .time {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    p {
+        margin: 0.5rem 0;
+    }
+
+    button {
+        cursor: pointer;
+        margin-left: 14.5rem;
+        font-size: 0.7rem;
+        color: #e08644;
+        background-color: #fff9f5;
+        border: none;
+    }
+`
 
 const Header = styled.header`
     display: flex;
