@@ -64,6 +64,100 @@ const HomeImg = styled.div`
   }
 `;
 
+// 광고
+const Adver = styled.div`
+  background-color: #fff7f0;
+  display: flex;
+  height: 150px;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 6px rgba(102, 102, 102, 0.2);
+  width: 22.2rem;
+  margin-top: -25px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 14rem;
+
+    h2 {
+      margin: 0;
+      margin-top: 1.5rem;
+      color: #ff7803;
+      text-shadow: 2px 2px 4px rgba(190, 190, 190, 0.5);
+    }
+
+    p {
+      margin: 0;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .extra {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+
+  img {
+    width: 12rem;
+    height: 150px;
+    border-radius: 0 1rem 1rem 0;
+  }
+`;
+
+// 마감세일중인 빵집
+const HeartTown = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: -225px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+`;
+
+const HeartBox = styled.div`
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 140px;
+  height: 190px;
+  border-radius: 10px;
+  margin-left: 15px;
+`;
+
+const HeartImg = styled.div`
+  position: relative;
+  width: 140px;
+  height: 190px;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+
+const HeartBoxs = styled.div`
+  display: flex; // 이 부분을 추가하여 가로로 정렬
+  overflow-x: auto; // 가로 스크롤을 활성화합니다.
+  width: 390px;
+  //   border: 1px solid #000;
+  &::-webkit-scrollbar {
+    /* WebKit 브라우저의 스크롤바를 숨김 */
+    width: 0;
+    background: transparent;
+  }
+`;
+
+const HeartName = styled.div`
+  position: relative;
+  background-color: #fff7f0;
+  border-radius: 0 0 10px 10px;
+  top: -25px;
+  padding-top: 4px;
+  font-size: 14px;
+  height: 1.32rem;
+  font-weight: bold;
+  line-height: normal;
+  text-align: center;
+`;
+
+// 우리동네빵집
 const Town = styled.div`
   font-size: 15px;
   font-weight: 600;
@@ -126,58 +220,8 @@ const Address = styled.div`
   line-height: normal;
   text-align: left;
 `;
-// 찜한 가게
-const HeartTown = styled.div`
-  font-size: 15px;
-  font-weight: 600;
-  margin-left: -225px;
-  margin-top: 25px;
-  margin-bottom: 10px;
-`;
 
-const HeartBox = styled.div`
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 140px;
-  height: 190px;
-  border-radius: 10px;
-  margin-left: 15px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-`;
 
-const HeartImg = styled.div`
-  position: relative;
-  width: 140px;
-  height: 190px;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-
-const HeartBoxs = styled.div`
-  display: flex; // 이 부분을 추가하여 가로로 정렬
-  overflow-x: auto; // 가로 스크롤을 활성화합니다.
-  width: 390px;
-  //   border: 1px solid #000;
-  &::-webkit-scrollbar {
-    /* WebKit 브라우저의 스크롤바를 숨김 */
-    width: 0;
-    background: transparent;
-  }
-`;
-
-const HeartName = styled.div`
-  position: relative;
-  top: -50px;
-  left: 4px;
-  color: white;
-  font-family: SUIT;
-  font-size: 21px;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  text-align: left;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-`;
 //하단 바
 const BottomBar = styled.div`
   background-color: #fda85d;
@@ -214,46 +258,6 @@ const Content2 = styled.div`
   font-size: 11px;
 `;
 
-const Adver = styled.div`
-  background-color: #fff7f0;
-  display: flex;
-  height: 150px;
-  border-radius: 1rem;
-  box-shadow: 1px 4px 6px rgba(102, 102, 102, 0.2);
-  width: 22.2rem;
-  margin-top: -25px;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    width: 14rem;
-
-    h2 {
-      margin: 0;
-      margin-top: 1.5rem;
-      color: #ff7803;
-      text-shadow: 2px 2px 4px rgba(190, 190, 190, 0.5);
-    }
-
-    p {
-      margin: 0;
-      margin-top: 1rem;
-      font-size: 0.8rem;
-    }
-
-    .extra {
-      margin-top: 0.5rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-  }
-
-  img {
-    width: 12rem;
-    height: 150px;
-    border-radius: 0 1rem 1rem 0;
-  }
-`;
 
 function Home() {
   const navigate = useNavigate();
@@ -318,6 +322,7 @@ function Home() {
           </Link>
         </HomeImg>
 
+        {/* 광고 */}
         <Adver id={currentAdvertisement.id}>
           <div>
             <h2>{currentAdvertisement.title}</h2>
@@ -325,9 +330,9 @@ function Home() {
             <p className="extra">{currentAdvertisement.extraDescription}</p>
           </div>
           <img src={currentAdvertisement.img} />
-
         </Adver>
 
+        {/* 마감세일중인 빵집 */}
         <HeartTown>마감세일 중인 빵집</HeartTown>
         <HeartBoxs>
           <HeartBox>
@@ -381,6 +386,8 @@ function Home() {
             <HeartName>오늘의 제빵소</HeartName>
           </HeartBox>
         </HeartBoxs>
+
+        {/* 우리동네빵집 */}
         <Town>우리 동네 빵집</Town>
         <ScrollBox>
           <PostBox>
@@ -433,6 +440,7 @@ function Home() {
           </PostBox>
         </ScrollBox>
 
+        {/* 하단바 */}
         <BottomBar>
           <BottomName>
             <img src={bv} />
