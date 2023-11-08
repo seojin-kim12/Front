@@ -15,7 +15,30 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [repassword, setRepassword] = useState('');
     const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
     const [showNicknameMessage, setShowNicknameMessage] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // 회원가입 정보를 서버로 전송
+        axios
+            .post('/api/join', {
+                nickname: nickname,
+                userName: id,
+                password: password,
+                passwordCheck: repassword,
+                phoneNum: phone,
+                address: address
+            })
+            .then((response) => {
+                // 회원가입이 성공했을 때의 처리
+                navigate('/signin');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -40,6 +63,8 @@ function Signup() {
                     <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
                     <p>비밀번호 확인</p>
                     <input type="passward" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
+                    <p>주소</p>
+                    <input type="text" value={address} placeholder='주소를 입력해주세요.' onChange={(e) => setAddress(e.target.value)} />
                     <p>전화번호</p>
                     <input type="number" value={phone} placeholder='전화번호를 입력해주세요.' onChange={(e) => setPhone(e.target.value)} />
                     <button>인증</button>
@@ -81,7 +106,7 @@ const Input = styled.div`
     margin-top: 1rem;
     background-color: #fffaf7;
     width: 17.5rem;
-    height: 33rem;
+    height: 36rem;
     padding: 1rem 1.5rem;
     border-radius: 1.8rem;
     box-shadow: 0 5px 18px -7px #c9c9c9;

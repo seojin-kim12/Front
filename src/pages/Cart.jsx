@@ -15,8 +15,14 @@ const Header = styled.header`
     margin-top: 2.5rem;
 
     img {
-        margin-left: 2.7rem;
-        margin-right: 2.7rem;
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+
+    .cart {
+        width: 35px;
+        height: 35px;
+        padding-top: 0.6rem;
     }
 `
 
@@ -27,7 +33,7 @@ function Cart() {
                 <Header>
                     <img src={back} alt="back" />
                     <Link to={'/'}><img src={logo} alt="Bver" /></Link>
-                    <Link to={'/cart'}><img src={cart} alt="cart" /></Link>
+                    <Link to={'/cart'}><img className='cart' src={cart} alt="cart" /></Link>
                 </Header>
             </Container>
         </motion.div>

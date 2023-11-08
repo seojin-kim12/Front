@@ -8,6 +8,9 @@ import logo from "../assets/logo.png";
 import account from "../assets/account.svg";
 import bread from "../assets/bread.jpg";
 import bv from "../assets/bv.png";
+import closingsale from '../assets/마감세일사진.png'
+import gift from '../assets/수능선물.jpg'
+import milk from '../assets/우유빵.png'
 
 const Top = styled.div`
   display: flex;
@@ -61,101 +64,102 @@ const HomeImg = styled.div`
   }
 `;
 
+// 광고
 const Adver = styled.div`
-  width: 100%;
-  margin-top: -37px;
+  background-color: #fff7f0;
+  display: flex;
+  height: 150px;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 6px rgba(102, 102, 102, 0.2);
+  width: 22.2rem;
+  margin-top: -25px;
 
-  #adv1 {
-    background-color: #ff8c00;
-    width: 100%;
-    height: 150px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    p1 {
-      position: relative;
-      left: -70px;
-      top: 20px;
-      color: #fff;
-      font-size: 30px;
-      font-weight: 650;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 14rem;
+
+    h2 {
+      margin: 0;
+      margin-top: 1.5rem;
+      color: #ff7803;
+      text-shadow: 2px 2px 4px rgba(190, 190, 190, 0.5);
     }
-    p2 {
-      position: relative;
-      left: -55px;
-      top: 30px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 650;
+
+    p {
+      margin: 0;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .extra {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
   }
 
-  #adv2 {
-    background-color: #8b4513;
-    width: 100%;
+  img {
+    width: 12rem;
     height: 150px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    p1 {
-      position: relative;
-      left: -70px;
-      top: 20px;
-      color: #ffa500;
-      font-size: 30px;
-      font-weight: 650;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    p2 {
-      position: relative;
-      left: -100px;
-      top: 30px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 650;
-    }
-    p3 {
-      position: relative;
-      left: -95px;
-      top: 33px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 650;
-    }
-  }
-
-  #adv3 {
-    background-color: #f4a460;
-    width: 100%;
-    height: 150px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    p1 {
-      position: relative;
-      left: -80px;
-      top: 20px;
-      color: #8b4513;
-      font-size: 30px;
-      font-weight: 650;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    p2 {
-      position: relative;
-      left: -58px;
-      top: 30px;
-      color: #5a2d0c;
-      font-size: 15px;
-      font-weight: 650;
-    }
-    p3 {
-      position: relative;
-      left: -113px;
-      top: 33px;
-      color: #5a2d0c;
-      font-size: 15px;
-      font-weight: 650;
-    }
+    border-radius: 0 1rem 1rem 0;
   }
 `;
 
-const Town = styled.div`
+// 마감세일중인 빵집
+const HeartTown = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: -225px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+`;
+
+const HeartBox = styled.div`
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 140px;
+  height: 190px;
+  border-radius: 10px;
+  margin-left: 15px;
+`;
+
+const HeartImg = styled.div`
+  position: relative;
+  width: 140px;
+  height: 190px;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+
+const HeartBoxs = styled.div`
+  display: flex; // 이 부분을 추가하여 가로로 정렬
+  overflow-x: auto; // 가로 스크롤을 활성화합니다.
+  width: 390px;
+  //   border: 1px solid #000;
+  &::-webkit-scrollbar {
+    /* WebKit 브라우저의 스크롤바를 숨김 */
+    width: 0;
+    background: transparent;
+  }
+`;
+
+const HeartName = styled.div`
+  position: relative;
+  background-color: #fff7f0;
+  border-radius: 0 0 10px 10px;
+  top: -25px;
+  padding-top: 4px;
   font-size: 14px;
+  height: 1.32rem;
+  font-weight: bold;
+  line-height: normal;
+  text-align: center;
+`;
+
+// 우리동네빵집
+const Town = styled.div`
+  font-size: 15px;
   font-weight: 600;
   margin-left: -255px;
   margin-top: 20px;
@@ -180,7 +184,7 @@ const PostImg = styled.div`
 `;
 
 const ScrollBox = styled.div`
-  width: 350px;
+  width: 340px;
   height: 255px;
   margin-top: 0.2rem;
   overflow-y: scroll;
@@ -216,65 +220,14 @@ const Address = styled.div`
   line-height: normal;
   text-align: left;
 `;
-// 찜한 가게
-const HeartTown = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  margin-left: -245px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-`;
 
-const HeartBox = styled.div`
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 150px;
-  height: 200px;
-  border-radius: 10px;
-  margin-left: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-`;
 
-const HeartImg = styled.div`
-  position: relative;
-  width: 150px;
-  height: 200px;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-
-const HeartBoxs = styled.div`
-  display: flex; // 이 부분을 추가하여 가로로 정렬
-  overflow-x: auto; // 가로 스크롤을 활성화합니다.
-  width: 100%;
-  height: 100%;
-  //   border: 1px solid #000;
-  &::-webkit-scrollbar {
-    /* WebKit 브라우저의 스크롤바를 숨김 */
-    width: 0;
-    background: transparent;
-  }
-`;
-
-const HeartName = styled.div`
-  position: relative;
-  top: -50px;
-  left: 4px;
-  color: white;
-  font-family: SUIT;
-  font-size: 21px;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  text-align: left;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-`;
 //하단 바
 const BottomBar = styled.div`
-  background-color: rgba(255, 140, 0, 0.8);
-  height: 53px;
+  background-color: #fda85d;
+  height: 53.5px;
   width: 100%;
-  box-shadow: 0px -4px 6px rgba(88, 88, 88, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
+  box-shadow: 0px -4px 6px rgba(131, 131, 131, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
   margin-top: 1.3rem;
   bottom: 0;
 `;
@@ -305,25 +258,30 @@ const Content2 = styled.div`
   font-size: 11px;
 `;
 
+
 function Home() {
   const navigate = useNavigate();
   const advertisements = [
     {
       id: "adv1",
       title: "오늘의 제빵소",
-      description: "3만원 이상 구매 시 3000원 할인",
+      description: "3만원 이상 구매 시",
+      extraDescription: "3000원 할인",
+      img: closingsale,
     },
     {
       id: "adv2",
       title: "외계인 방앗간",
       description: "2023 수능 선물은",
-      extraDescription: "외계인 방앗간에서!!",
+      extraDescription: "외계인 방앗간에서",
+      img: gift,
     },
     {
       id: "adv3",
       title: "모어 댄 밀크",
       description: "신선한 우유와 버터를 사용하여",
       extraDescription: "풍미 가득한 빵",
+      img: milk,
     },
   ];
 
@@ -334,7 +292,7 @@ function Home() {
       setCurrentAdvIndex(
         (prevIndex) => (prevIndex + 1) % advertisements.length
       );
-    }, 2000);
+    }, 3000);
 
     return () => {
       clearInterval(timer);
@@ -363,71 +321,19 @@ function Home() {
             <img src={account} alt="account" />
           </Link>
         </HomeImg>
-        <Adver>
-          <div id={currentAdvertisement.id}>
-            <p1>{currentAdvertisement.title}</p1>
-            <br />
-            <p2>{currentAdvertisement.description}</p2>
-            {currentAdvertisement.extraDescription && (
-              <>
-                <br />
-                <p3>{currentAdvertisement.extraDescription}</p3>
-              </>
-            )}
+
+        {/* 광고 */}
+        <Adver id={currentAdvertisement.id}>
+          <div>
+            <h2>{currentAdvertisement.title}</h2>
+            <p>{currentAdvertisement.description}</p>
+            <p className="extra">{currentAdvertisement.extraDescription}</p>
           </div>
+          <img src={currentAdvertisement.img} />
         </Adver>
-        <Town>우리 동네 빵집</Town>
-        <ScrollBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-        </ScrollBox>
-        <HeartTown>내가 찜한 가게</HeartTown>
+
+        {/* 마감세일중인 빵집 */}
+        <HeartTown>마감세일 중인 빵집</HeartTown>
         <HeartBoxs>
           <HeartBox>
             <HeartImg>
@@ -480,6 +386,61 @@ function Home() {
             <HeartName>오늘의 제빵소</HeartName>
           </HeartBox>
         </HeartBoxs>
+
+        {/* 우리동네빵집 */}
+        <Town>우리 동네 빵집</Town>
+        <ScrollBox>
+          <PostBox>
+            <PostImg>
+              <img
+                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
+                src={bread}
+                alt="Profile"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
+              />
+            </PostImg>
+            <Name>오늘의 제빵소</Name>
+            <Address>경기도 구리시 벌말로 128번길 13</Address>
+          </PostBox>
+          <PostBox>
+            <PostImg>
+              <img
+                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
+                src={bread}
+                alt="Profile"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
+              />
+            </PostImg>
+            <Name>오늘의 제빵소</Name>
+            <Address>경기도 구리시 벌말로 128번길 13</Address>
+          </PostBox>
+          <PostBox>
+            <PostImg>
+              <img
+                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
+                src={bread}
+                alt="Profile"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
+              />
+            </PostImg>
+            <Name>오늘의 제빵소</Name>
+            <Address>경기도 구리시 벌말로 128번길 13</Address>
+          </PostBox>
+          <PostBox>
+            <PostImg>
+              <img
+                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
+                src={bread}
+                alt="Profile"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
+              />
+            </PostImg>
+            <Name>오늘의 제빵소</Name>
+            <Address>경기도 구리시 벌말로 128번길 13</Address>
+          </PostBox>
+        </ScrollBox>
+
+        {/* 하단바 */}
         <BottomBar>
           <BottomName>
             <img src={bv} />
