@@ -64,6 +64,22 @@ const Input = styled.div`
   }
 `;
 
+const Write = styled.div`
+  margin-top: 12px;
+  margin-left: 12px;
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: #696969;
+
+  p2 {
+    cursor: pointer;
+    margin-right: 10px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
 const Button = styled.button`
   margin-top: 1.5rem;
   width: 17rem;
@@ -77,6 +93,12 @@ const Button = styled.button`
 `;
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/Signup");
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -94,9 +116,12 @@ function Login() {
           <p>비밀번호</p>
           <input type="text" placeholder="비밀번호를 입력해주세요." />
         </Input>
-        <Link to={"/home"}>
+        <Link to={"/"}>
           <Button>로그인</Button>
         </Link>
+        <Write>
+          <p2 onClick={handleLoginClick}>회원가입</p2>
+        </Write>
       </Container>
     </motion.div>
   );
