@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Container } from '../styles/global';
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import back from '../assets/back.png'
@@ -17,10 +17,10 @@ import plus from '../assets/plus.png'
 
 function Detail() {
     // 수량 
-    const [nums, setNums] = useState([1, 1, 1, 1]);
+    const [nums, setNums] = useState([0, 0, 0, 0]);
 
     const handleMinusClick = (index) => {
-        if (nums[index] > 1) {
+        if (nums[index] > 0) {
             const newNums = [...nums];
             newNums[index] = nums[index] - 1;
             setNums(newNums);
@@ -32,6 +32,10 @@ function Detail() {
         newNums[index] = nums[index] + 1;
         setNums(newNums);
     };
+
+    // 모달
+    const [modalOpen, setModalOpen] = useState(false);
+    const modalBackground = useRef();
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -52,6 +56,7 @@ function Detail() {
                         <span>파리바게트</span>
                         <img className='heart' src={heart} alt="heart" />
                     </div>
+                    <p>운영시간 : 매일 오전 10:00 ~ 오후 9:00</p>
                     <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
                 </StoreInfo>
 
@@ -75,13 +80,73 @@ function Detail() {
                     ))}
                 </Breads>
 
-                <Link to={'/cart'}><Reservation>예약하기</Reservation></Link>
+                <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
+
+                {
+                    modalOpen &&
+                    <Modal ref={modalBackground} onClick={e => {
+                        if (e.target === modalBackground.current) {
+                            setModalOpen(false);
+                        }
+                    }}>
+                        <div>
+                            <Link to={'/'}><button onClick={() => setModalOpen(false)}>X</button></Link>
+                            <h3>예약 완료</h3>
+                            <p className='time'>15분 후</p>
+                            <p>매장에 방문해주시길 바랍니다.</p>
+                        </div>
+                    </Modal>
+                }
+
             </Container>
         </motion.div>
     );
 }
 
 export default Detail;
+
+const Modal = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+
+    div {
+        background-color: #fff9f5;
+        width: 250px;
+        height: 150px;
+        padding: 5px;
+        border-radius: 0.5rem;
+    }
+
+    h3 {
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    .time {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    p {
+        margin: 0.5rem 0;
+    }
+
+    button {
+        cursor: pointer;
+        margin-left: 14.5rem;
+        font-size: 0.7rem;
+        color: #e08644;
+        background-color: #fff9f5;
+        border: none;
+    }
+`
 
 const Header = styled.header`
     display: flex;
@@ -112,10 +177,9 @@ const StoreInfo = styled.div`
         text-align: left;
         width: 20.5rem;
         margin: 0;
-        margin-top: 0.7rem;
+        margin-top: 0.3rem;
         font-size: 0.8rem;
         font-weight: 545;
-        margin-bottom: 1rem;
         color: #3d3d3d;
         padding-left: 2rem;
     }
@@ -126,6 +190,7 @@ const StoreInfo = styled.div`
         padding-top: 1rem;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 0.5rem;
         span {
             margin-left: 0.5rem;
             font-size: 1.3rem;
@@ -151,6 +216,7 @@ const Breads = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 0.8rem;
 `
 
 const Bread = styled.div`
@@ -158,8 +224,8 @@ const Bread = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #fff9f5;
-    width: 9.7rem;
-    height: 14.5rem;
+    width: 9.5rem;
+    height: 14rem;
     margin: 0.4rem 0.7rem;
     padding: 0.8rem 0;
     border-radius: 1rem;
@@ -171,12 +237,13 @@ const Bread = styled.div`
 
     p {
         margin: 0;
-        font-size: 1.1rem;
+        font-size: 0.8rem;
         font-weight: 600;
     }
 
     .num {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
+        margin-top: 0.2rem;
         margin-bottom: 0.5rem;
     }
 
@@ -186,6 +253,7 @@ const Bread = styled.div`
     }
 
     span {
+        font-size: 0.8rem;
         font-weight: 600;
         margin: 0 0.2rem;
     }
@@ -197,15 +265,19 @@ const Amount = styled.div`
     align-items: center;
     border: 1px solid #a5a5a5;
     border-radius: 1rem;
-    width: 8rem;
-    height: 1.7rem;
+    width: 7rem;
+    height: 1.4rem;
     margin-top: 0.5rem;
     padding-top: 0.3rem;
+
+    p {
+        font-size: 1rem;
+    }
 
     img {
         width: 10px;
         height: 10px;
-        padding: 0 1.5rem;
+        padding: 0.5rem 1.5rem;
     }
 
     .minus{
@@ -218,6 +290,7 @@ const Amount = styled.div`
 
 const Reservation = styled.button`
     margin: 2rem;
+    margin-bottom: 3rem;
     width: 17rem;
     height: 2.5rem;
     font-size: 1.2rem;
