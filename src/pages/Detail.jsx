@@ -290,6 +290,7 @@ const Amount = styled.div`
 
 const Reservation = styled.button`
     margin: 2rem;
+    margin-bottom: 3rem;
     width: 17rem;
     height: 2.5rem;
     font-size: 1.2rem;
