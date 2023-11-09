@@ -22,6 +22,7 @@ export const Container = styled.div`
     -ms-overflow-style: none;
     scrollbar-width: none;
     align-items: center;
+    //justify-content: center;
     overflow-x: hidden;
     padding-bottom: 60px;
 

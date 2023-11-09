@@ -60,9 +60,9 @@ function Signup() {
                     <input type="text" value={id} placeholder='아이디를 입력해주세요.' onChange={(e) => setId(e.target.value)}
                         onClick={() => setShowNicknameMessage(false)} />
                     <p>비밀번호</p>
-                    <input type="passward" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" value={password} placeholder='비밀번호를 입력해주세요.' onChange={(e) => setPassword(e.target.value)} />
                     <p>비밀번호 확인</p>
-                    <input type="passward" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
+                    <input type="password" value={repassword} placeholder='비밀번호를 한 번 더 입력해주세요.' onChange={(e) => setRepassword(e.target.value)} />
                     <p>주소</p>
                     <input type="text" value={address} placeholder='주소를 입력해주세요.' onChange={(e) => setAddress(e.target.value)} />
                     <p>전화번호</p>
@@ -70,7 +70,7 @@ function Signup() {
                     <button>인증</button>
                 </Input>
                 <Link to={'/login'}>
-                    <Button>회원가입</Button>
+                    <Button onClick={handleSubmit}>회원가입</Button>
                 </Link>
             </Container>
         </motion.div>
@@ -78,7 +78,7 @@ function Signup() {
 };
 export default Signup;
 
-const Top = styled.div`
+const Top = styled.form`
     display: flex;
     flex-direction: column;
     margin-right: 5rem;
