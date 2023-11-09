@@ -69,9 +69,7 @@ function Signup() {
                     <input type="number" value={phone} placeholder='전화번호를 입력해주세요.' onChange={(e) => setPhone(e.target.value)} />
                     <button>인증</button>
                 </Input>
-                <Link to={'/login'}>
-                    <Button onClick={handleSubmit}>회원가입</Button>
-                </Link>
+                <Button onClick={handleSubmit}>회원가입</Button>
             </Container>
         </motion.div>
     );
