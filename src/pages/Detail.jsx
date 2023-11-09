@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Container } from '../styles/global';
 import { motion } from "framer-motion";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useParams } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import back from '../assets/back.png'
@@ -36,6 +36,21 @@ function Detail() {
     // 모달
     const [modalOpen, setModalOpen] = useState(false);
     const modalBackground = useRef();
+
+    // 데이터 변수
+    const [data, setData] = useState(null);
+    const { bakeryId } = useParams();
+    
+    // 데이터
+    useEffect(() => {
+        axios.get('http://13.124.196.200:8081/api/bakery/${bakeryId}')
+            .then((response) => {
+                setData(response.data)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
