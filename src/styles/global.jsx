@@ -23,6 +23,7 @@ export const Container = styled.div`
     scrollbar-width: none;
     align-items: center;
     overflow-x: hidden;
+    padding-bottom: 60px;
 
 
     @media (hover: hover) {
@@ -35,7 +36,7 @@ export const Container = styled.div`
     }
     
     .body {
-        min-height: calc(100vh - 145px);
+        //min-height: calc(100vh - 145px);
         .scrollbox {
         overflow-y: scroll;
         overflow-x: hidden;

@@ -226,7 +226,7 @@ const BottomBar = styled.div`
   background-color: #fff7f0;
   height: 52px;
   width: 390px;
-  margin-top: 1.5rem;
+  position: fixed;
   bottom: 0;
   box-shadow: 0px -4px 6px rgba(177, 177, 177, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
 `;
@@ -331,7 +331,7 @@ function Home() {
         </Adver>
 
         {/* 마감세일중인 빵집 */}
-        <HeartTown>마감세일 중인 빵집</HeartTown>
+        <Link to='/detail'><HeartTown>마감세일 중인 빵집</HeartTown></Link>
         <HeartBoxs>
           <HeartBox>
             <HeartImg>
