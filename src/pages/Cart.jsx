@@ -57,6 +57,27 @@ function Cart() {
             });
     }, []);
 
+    // 예약 post
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     axios
+    //         .post('http://13.124.196.200:8081/api/reservations', {
+    //             userId: ,
+    //             storeId: bakeryId,
+    //             breadId: ,
+    //             breadType: ,
+    //             quantity: ,
+    //             pickUpTime: selectedTime 
+    //         })
+    //         .then((response) => {
+    //             navigate('/');
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // };
+
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <Container>
