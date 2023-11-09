@@ -50,7 +50,7 @@ function Cart() {
                     {nums.map((num, index) => (
                         <div className='items' key={index}>
                             <div>
-                                <img src={choco} alt="" />
+                                <img className='photo' src={choco} alt="" />
                                 <h3>초코소라빵</h3>
                                 <div className='priceNum'>
                                     <p>1,500원</p>
@@ -110,14 +110,14 @@ const Header = styled.header`
 const List = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 0.5rem;
     background-color: #fff7f0;
     width: 390px;
 
     .storename {
         text-align: left;
-        padding-left: 2.6rem;
+        padding-left: 2rem;
         font-size: 1.1rem;
         margin: 0.5rem 0;
     }
@@ -133,15 +133,20 @@ const List = styled.div`
 
         h3 {
             margin-left: 0.5rem;
-            margin-right: 2rem;
+            margin-right: 4rem;
+            font-size: 15px;
             font-weight: 500;
         }
     }
 
     img {
-        margin-left: 1rem;
-        margin-top: 0.4rem;
-        margin-bottom: 0.4rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .photo {
+        width: 90px;
+        height: 90px;
     }
 
     .priceNum {

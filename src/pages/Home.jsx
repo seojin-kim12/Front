@@ -110,7 +110,7 @@ const Adver = styled.div`
 const HeartTown = styled.div`
   font-size: 15px;
   font-weight: 600;
-  margin-left: -225px;
+  margin-left: -215px;
   margin-top: 25px;
   margin-bottom: 10px;
 `;
@@ -118,16 +118,16 @@ const HeartTown = styled.div`
 const HeartBox = styled.div`
   position: relative;
   background-color: rgba(255, 255, 255, 0.5);
-  width: 140px;
-  height: 190px;
+  width: 130px;
+  height: 181px;
   border-radius: 10px;
-  margin-left: 15px;
+  margin-left: 20px;
 `;
 
 const HeartImg = styled.div`
   position: relative;
-  width: 140px;
-  height: 190px;
+  width: 130px;
+  height: 180px;
   border-radius: 10px;
   overflow: hidden;
 `;
@@ -135,7 +135,7 @@ const HeartImg = styled.div`
 const HeartBoxs = styled.div`
   display: flex; // 이 부분을 추가하여 가로로 정렬
   overflow-x: auto; // 가로 스크롤을 활성화합니다.
-  width: 390px;
+  width: 375px;
   //   border: 1px solid #000;
   &::-webkit-scrollbar {
     /* WebKit 브라우저의 스크롤바를 숨김 */
@@ -151,7 +151,7 @@ const HeartName = styled.div`
   top: -25px;
   padding-top: 4px;
   font-size: 14px;
-  height: 1.32rem;
+  height: 1.3199rem;
   font-weight: bold;
   line-height: normal;
   text-align: center;
@@ -161,7 +161,7 @@ const HeartName = styled.div`
 const Town = styled.div`
   font-size: 15px;
   font-weight: 600;
-  margin-left: -255px;
+  margin-left: -235px;
   margin-top: 20px;
   margin-bottom: 0px;
 `;
@@ -184,9 +184,8 @@ const PostImg = styled.div`
 `;
 
 const ScrollBox = styled.div`
-  width: 340px;
+  width: 330px;
   height: 255px;
-  margin-top: 0.2rem;
   overflow-y: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
@@ -200,9 +199,9 @@ const ScrollBox = styled.div`
 const Name = styled.div`
   position: relative;
   top: -60px;
-  left: 95px;
+  left: 93px;
   color: #000000;
-  font-size: 18px;
+  font-size: 15px;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
@@ -213,7 +212,7 @@ const Name = styled.div`
 const Address = styled.div`
   position: relative;
   top: -56px;
-  left: 95px;
+  left: 93px;
   color: black;
   font-size: 12px;
   font-style: normal;
@@ -224,12 +223,12 @@ const Address = styled.div`
 
 //하단 바
 const BottomBar = styled.div`
-  background-color: #fda85d;
-  height: 53.5px;
-  width: 100%;
-  box-shadow: 0px -4px 6px rgba(131, 131, 131, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
-  margin-top: 1.3rem;
+  background-color: #fff7f0;
+  height: 52px;
+  width: 390px;
+  position: fixed;
   bottom: 0;
+  box-shadow: 0px -4px 6px rgba(177, 177, 177, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
 `;
 
 const BottomName = styled.div`
@@ -244,17 +243,16 @@ const Content = styled.div`
   position: relative;
   margin-top: -45px;
   margin-left: 25px;
-  color: #fff;
+  color: #ff7803;
   font-size: 15px;
   font-weight: 550;
-  text-shadow: 2px 2px 4px rgba(83, 83, 83, 0.5);
+  text-shadow: 2px 2px 4px rgba(104, 104, 104, 0.5);
 `;
 
 const Content2 = styled.div`
   position: relative;
   margin-top: 3px;
   margin-left: 25px;
-  color: #fff;
   font-size: 11px;
 `;
 
@@ -333,7 +331,7 @@ function Home() {
         </Adver>
 
         {/* 마감세일중인 빵집 */}
-        <HeartTown>마감세일 중인 빵집</HeartTown>
+        <Link to='/detail'><HeartTown>마감세일 중인 빵집</HeartTown></Link>
         <HeartBoxs>
           <HeartBox>
             <HeartImg>

@@ -23,7 +23,7 @@ function Signup() {
 
         // 회원가입 정보를 서버로 전송
         axios
-            .post('/api/join', {
+            .post('http://13.124.196.200:8081/api/join', {
                 nickname: nickname,
                 userName: id,
                 password: password,
