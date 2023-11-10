@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Container } from '../styles/global';
 import { motion } from "framer-motion";
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import styled from "styled-components";
 import back from '../assets/back.png'
@@ -21,46 +21,45 @@ function Detail() {
     // 수량 및 로컬저장
     const [nums, setNums] = useState([]);
 
-    const updateQuantity = (index, newQuantity) => {
-        const newNums = [...nums];
-        newNums[index] = newQuantity;
-        setNums(newNums);
-    };
-
-    useEffect(() => {
-        if (data && data.menu_list) {
-            const updatedItems = data.menu_list.map((menu, index) => {
-                return {
-                    store_name: data.store_name,
-                    menu_img: menu.menu_img,
-                    menu_name: menu.menu_name,
-                    quantity: nums[index],
-                    price: menu.price,
-                };
-            });
-
-            // 수량이 0인 아이템 제거
-            const filteredItems = updatedItems.filter(item => item.quantity > 0);
-
-            // 로컬 스토리지에 저장할 때 store_id를 키로 사용
-            localStorage.setItem(`selectedItems_${store_id}`, JSON.stringify(filteredItems));
-        }
-    }, [nums]);
-
     const handleMinusClick = (index) => {
         if (nums[index] > 0) {
-            updateQuantity(index, nums[index] - 1);
+            const newNums = [...nums];
+            newNums[index] = nums[index] - 1;
+            setNums(newNums);
         }
     };
 
     const handlePlusClick = (index) => {
-        updateQuantity(index, nums[index] + 1);
+        const newNums = [...nums];
+        newNums[index] = nums[index] + 1;
+        setNums(newNums);
     };
+
+    const handleAddToCart = () => {
+        if (data && data.menu_list) {
+            // Filter out items with quantity 0
+            const cartItems = data.menu_list
+                .map((menu, index) => ({
+                    storeName: data.store_name,
+                    menuImg: menu.menu_img,
+                    menuName: menu.menu_name,
+                    price: menu.price,
+                    quantity: nums[index],
+                }))
+                .filter(item => item.quantity > 0);
+
+            // Update local storage with the cart items
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+        }
+        setCartModalOpen(true);
+    };
+
 
 
     // 모달
     const [modalOpen, setModalOpen] = useState(false);
     const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+    const [cartModalOpen, setCartModalOpen] = useState(false);
     const modalBackground = useRef();
 
     // 예약시간
@@ -81,7 +80,7 @@ function Detail() {
             .then((response) => {
                 console.log(response.data)
                 // nums가 초기화되지 않았을 때만 초기화
-                if (!nums.length) {
+                if (nums.length === 0) {
                     // 모든 빵의 개수를 0으로 초기화된 배열로 설정
                     const initialNums = Array(response.data.result.menu_list.length).fill(0);
                     setNums(initialNums);
@@ -178,13 +177,23 @@ function Detail() {
                     ))}
                 </Breads>
 
-                <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
+                <Button>
+                    <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
+                    <Reservation onClick={handleAddToCart}>장바구니 담기</Reservation>
+                </Button>
 
                 {modalOpen && (
                     <Modal>
                         <div>
-                            <Link to={'/'}><button className='close' onClick={() => setModalOpen(false)}>X</button></Link>
-                            <h3>예약시간</h3>
+                            <button className='close' onClick={() => setModalOpen(false)}>X</button>
+                            <h3>예약목록을 확인하고 시간을 선택해주세요</h3>
+
+                            {data && data.menu_list && data.menu_list.map((menu, index) => (
+                                nums[index] > 0 && (
+                                    <p key={index}>{menu.menu_name} {nums[index]}개</p>
+                                )
+                            ))}
+
                             <select
                                 value={selectedTime}
                                 onChange={(e) => setSelectedTime(e.target.value)}
@@ -203,11 +212,28 @@ function Detail() {
                         <div>
                             <h3>예약 완료</h3>
                             <p>예약이 성공적으로 완료되었습니다!</p>
+                            <p className="visittext">{selectedTime}분 후 매장에 방문해주시길 바랍니다.</p>
                             <Link to={'/'}>
                                 <button className='close' onClick={() => setConfirmationModalOpen(false)}>확인</button>
                             </Link>
                         </div>
                     </ConfirmModal>
+                )}
+
+                {cartModalOpen && (
+                    <Modal>
+                        <div>
+                            <Link to={'/'}><button className='close' onClick={() => setModalOpen(false)}>X</button></Link>
+                            <h3>예약목록을 확인해주세요</h3>
+
+                            {data && data.menu_list && data.menu_list.map((menu, index) => (
+                                nums[index] > 0 && (
+                                    <p key={index}>{menu.menu_name} {nums[index]}개</p>
+                                )
+                            ))}
+                            <button className='reservation' onClick={() => setCartModalOpen(false)}>장바구니 담기</button>
+                        </div>
+                    </Modal>
                 )}
 
             </Container>
@@ -229,16 +255,25 @@ const Modal = styled.div`
     background: rgba(0, 0, 0, 0.5);
 
     div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         background-color: #fff9f5;
         width: 250px;
-        height: 200px;
+        height: auto;
         padding: 5px;
         border-radius: 0.5rem;
     }
 
     h3 {
+        width: 10rem;
         margin: 0;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+    }
+
+    p {
+        margin: 0.5rem;
     }
 
     .close {
@@ -259,9 +294,9 @@ const Modal = styled.div`
     }
 
     .reservation {
-        margin: 2rem;
-        margin-bottom: 3rem;
-        width: 6rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 7rem;
         height: 1.8rem;
         font-size: 0.8rem;
         font-weight: 550;
@@ -284,9 +319,12 @@ const ConfirmModal = styled.div`
     background: rgba(0, 0, 0, 0.5);
 
     div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         background-color: #fff9f5;
         width: 250px;
-        height: 200px;
+        height: auto;
         padding: 5px;
         border-radius: 0.5rem;
     }
@@ -298,7 +336,11 @@ const ConfirmModal = styled.div`
 
     p {
         margin-top: 2rem;
-        margin-bottom: 1.5rem;
+    }
+
+    .visittext {
+        width: 12rem;
+        margin-top: 0;
     }
 
     button {
@@ -313,7 +355,7 @@ const ConfirmModal = styled.div`
         background-color: #e08644;
         box-shadow: 0 5px 18px -7px #838383;
     }
-`
+`;
 
 const Header = styled.header`
     display: flex;
@@ -476,12 +518,16 @@ const Amount = styled.div`
     }
 `
 
+const Button = styled.div`
+    display: flex;
+    margin-top: 3rem;
+`
+
 const Reservation = styled.button`
-    margin: 2rem;
-    margin-bottom: 3rem;
-    width: 17rem;
+    margin: 0 0.7rem;
+    width: 9rem;
     height: 2.5rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 550;
     border-radius: 0.8rem;
     border: 1px solid #a5a5a5;

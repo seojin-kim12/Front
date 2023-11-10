@@ -30,6 +30,10 @@ function Cart() {
         setNums(newNums);
     };
 
+    const getSelectedItems = () => {
+        return storedItems.filter((item, index) => nums[index] > 0);
+    };
+
     // 모달
     const [modalOpen, setModalOpen] = useState(false);
     const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -43,7 +47,7 @@ function Cart() {
     };
 
     // 로컬데이터 GET
-    const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+    const storedItems = JSON.parse(localStorage.getItem('cart')) || [];
     useEffect(() => {
         const initialNums = storedItems.map(item => item.quantity || 0);
         setNums(initialNums);
@@ -80,13 +84,13 @@ function Cart() {
                 </Header>
 
                 <List>
-                    <p className='storename'>{storedItems.length > 0 ? storedItems[0].store_name : ''}</p>
+                    <p className='storename'>{storedItems.length > 0 ? storedItems[0].storeName : ''}</p>
                     <img src={line} alt="" />
                     {storedItems.map((item, index) => (
                         <div className='items' key={index}>
                             <div>
-                                <img className='photo' src={item.menu_img} alt={item.menu_name} />
-                                <h3>{item.menu_name}</h3>
+                                <img className='photo' src={item.menuImg} alt={item.menu_name} />
+                                <h3>{item.menuName}</h3>
                                 <div className='priceNum'>
                                     <p>{item.price}원</p>
                                     <Amount>
@@ -106,7 +110,12 @@ function Cart() {
                     <Modal>
                         <div>
                             <Link to={'/'}><button className='close' onClick={() => setModalOpen(false)}>X</button></Link>
-                            <h3>예약시간</h3>
+                            <h3>예약목록을 확인하고 시간을 선택해주세요</h3>
+
+                            {getSelectedItems().map((item, index) => (
+                                <p key={index}>{item.menuName} {nums[index]}개</p>
+                            ))}
+
                             <select
                                 value={selectedTime}
                                 onChange={(e) => setSelectedTime(e.target.value)}
@@ -124,6 +133,7 @@ function Cart() {
                         <div>
                             <h3>예약 완료</h3>
                             <p>예약이 성공적으로 완료되었습니다!</p>
+                            <p className="visittext">{selectedTime}분 후에 매장에 방문해주시길 바랍니다.</p>
                             <Link to={'/'}>
                                 <button className='close' onClick={() => setConfirmationModalOpen(false)}>확인</button>
                             </Link>
@@ -179,8 +189,8 @@ const List = styled.div`
         align-items: center;
 
         h3 {
-        margin-left: 0.5rem;
-        margin-right: 4rem;
+        margin-left: 1rem;
+        margin-right: 5rem;
         font-size: 15px;
         font-weight: 500;
         }
@@ -194,6 +204,8 @@ const List = styled.div`
     .photo {
         width: 90px;
         height: 90px;
+        border-radius: 1rem;
+        margin: 0.5rem 0;
     }
 
     .priceNum {
@@ -266,16 +278,25 @@ const Modal = styled.div`
     background: rgba(0, 0, 0, 0.5);
 
     div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         background-color: #fff9f5;
         width: 250px;
-        height: 200px;
+        height: auto;
         padding: 5px;
         border-radius: 0.5rem;
     }
 
     h3 {
+        width: 10rem;
         margin: 0;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+    }
+
+    p {
+        margin: 0.5rem;
     }
 
     .close {
@@ -296,8 +317,8 @@ const Modal = styled.div`
     }
 
     .reservation {
-        margin: 2rem;
-        margin-bottom: 3rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
         width: 6rem;
         height: 1.8rem;
         font-size: 0.8rem;
@@ -307,7 +328,7 @@ const Modal = styled.div`
         background-color: #e08644;
         box-shadow: 0 5px 18px -7px #838383;
     }
-`;
+`
 
 const ConfirmModal = styled.div`
     width: 100%;
@@ -321,9 +342,12 @@ const ConfirmModal = styled.div`
     background: rgba(0, 0, 0, 0.5);
 
     div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         background-color: #fff9f5;
         width: 250px;
-        height: 200px;
+        height: auto;
         padding: 5px;
         border-radius: 0.5rem;
     }
@@ -335,7 +359,11 @@ const ConfirmModal = styled.div`
 
     p {
         margin-top: 2rem;
-        margin-bottom: 1.5rem;
+    }
+
+    .visittext {
+        width: 12rem;
+        margin-top: 0;
     }
 
     button {
@@ -351,25 +379,3 @@ const ConfirmModal = styled.div`
         box-shadow: 0 5px 18px -7px #838383;
     }
 `;
-
-{/* <List>
-                    <p className='storename'>파리바게트</p>
-                    <img src={line} alt="" />
-                    {nums.map((num, index) => (
-                        <div className='items' key={index}>
-                            <div>
-                                <img className='photo' src={choco} alt="" />
-                                <h3>초코소라빵</h3>
-                                <div className='priceNum'>
-                                    <p>1,500원</p>
-                                    <Amount>
-                                        <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
-                                        <p>{num}</p>
-                                        <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
-                                    </Amount>
-                                </div>
-                            </div>
-                            <img src={line} alt="" />
-                        </div>
-                    ))}
-                </List> */}
