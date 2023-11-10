@@ -13,8 +13,8 @@ import plus from "../assets/plus.png";
 import line from "../assets/line.png";
 
 function Cart() {
-    // 수량 
-    const [nums, setNums] = useState([0, 0, 0, 0]);
+    //수량 
+    const [nums, setNums] = useState([]);
 
     const handleMinusClick = (index) => {
         if (nums[index] > 0) {
@@ -44,6 +44,10 @@ function Cart() {
 
     // 로컬데이터 GET
     const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+    useEffect(() => {
+        const initialNums = storedItems.map(item => item.quantity || 0);
+        setNums(initialNums);
+    }, []);
 
     // 예약 post
     // const handleSubmit = (e) => {
@@ -76,28 +80,6 @@ function Cart() {
                 </Header>
 
                 <List>
-                    <p className='storename'>파리바게트</p>
-                    <img src={line} alt="" />
-                    {nums.map((num, index) => (
-                        <div className='items' key={index}>
-                            <div>
-                                <img className='photo' src={choco} alt="" />
-                                <h3>초코소라빵</h3>
-                                <div className='priceNum'>
-                                    <p>1,500원</p>
-                                    <Amount>
-                                        <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
-                                        <p>{num}</p>
-                                        <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
-                                    </Amount>
-                                </div>
-                            </div>
-                            <img src={line} alt="" />
-                        </div>
-                    ))}
-                </List>
-
-                {/* <List>
                     <p className='storename'>{storedItems.length > 0 ? storedItems[0].store_name : ''}</p>
                     <img src={line} alt="" />
                     {storedItems.map((item, index) => (
@@ -109,7 +91,7 @@ function Cart() {
                                     <p>{item.price}원</p>
                                     <Amount>
                                         <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
-                                        <p>{item.quantity}</p>
+                                        <p>{nums[index]}</p>
                                         <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
                                     </Amount>
                                 </div>
@@ -117,8 +99,8 @@ function Cart() {
                             <img src={line} alt="" />
                         </div>
                     ))}
-                </List> */}
-                
+                </List>
+
                 <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
                 {modalOpen && (
                     <Modal>
@@ -155,217 +137,239 @@ function Cart() {
 export default Cart;
 
 const Header = styled.header`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2.5rem;
-
-  img {
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
-
-  .cart {
-    width: 35px;
-    height: 35px;
-    padding-top: 0.6rem;
-  }
-`;
-
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
-  padding: 0.5rem;
-  background-color: #fff7f0;
-  width: 390px;
-
-  .storename {
-    text-align: left;
-    padding-left: 2rem;
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-  }
-
-  .items {
-    display: flex;
-    flex-direction: column;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-
-    h3 {
-      margin-left: 0.5rem;
-      margin-right: 4rem;
-      font-size: 15px;
-      font-weight: 500;
-    }
-  }
-
-  img {
-    margin-top: 0.2rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .photo {
-    width: 90px;
-    height: 90px;
-  }
-
-  .priceNum {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    margin-top: 2.5rem;
 
-    p {
-      margin: 0;
-      margin-left: 1rem;
-      margin-right: 1rem;
-      font-weight: 600;
+    img {
+        margin-left: 3rem;
+        margin-right: 3rem;
     }
-  }
+
+    .cart {
+        width: 35px;
+        height: 35px;
+        padding-top: 0.6rem;
+    }
 `;
 
+const List = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+    background-color: #fff7f0;
+    width: 390px;
+
+    .storename {
+        text-align: left;
+        padding-left: 2rem;
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+    }
+
+    .items {
+        display: flex;
+        flex-direction: column;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+
+        h3 {
+        margin-left: 0.5rem;
+        margin-right: 4rem;
+        font-size: 15px;
+        font-weight: 500;
+        }
+    }
+
+    img {
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .priceNum {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        p {
+        margin: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        font-weight: 600;
+        }
+    }
+    `;
+
 const Amount = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #a5a5a5;
-  border-radius: 1rem;
-  width: 7rem;
-  height: 1.4rem;
-  margin-top: 0.5rem;
-  padding-top: 0.18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #a5a5a5;
+    border-radius: 1rem;
+    width: 7rem;
+    height: 1.4rem;
+    margin-top: 0.5rem;
+    padding-top: 0.18rem;
 
-  p {
-    font-size: 1rem;
-  }
+    p {
+        font-size: 1rem;
+    }
 
-  img {
-    width: 10px;
-    height: 10px;
-    padding: 0.5rem 0.5rem;
-    margin: 0;
-  }
+    img {
+        width: 10px;
+        height: 10px;
+        padding: 0.5rem 0.5rem;
+        margin: 0;
+    }
 
-  .minus {
-    width: 12px;
-    height: 1px;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
+    .minus {
+        width: 12px;
+        height: 1px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
 `;
 
 const Reservation = styled.button`
-  margin: 2rem;
-  margin-bottom: 3rem;
-  width: 17rem;
-  height: 2.5rem;
-  font-size: 1.2rem;
-  font-weight: 550;
-  border-radius: 0.8rem;
-  border: 1px solid #a5a5a5;
-  background-color: #e08644;
-  box-shadow: 0 5px 18px -7px #838383;
-`;
-
-const Modal = styled.div`
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-
-  div {
-    background-color: #fff9f5;
-    width: 250px;
-    height: 200px;
-    padding: 5px;
-    border-radius: 0.5rem;
-  }
-
-  h3 {
-    margin: 0;
-    margin-bottom: 1rem;
-  }
-
-  .close {
-    cursor: pointer;
-    margin-left: 14.5rem;
-    font-size: 0.7rem;
-    color: #e08644;
-    background-color: #fff9f5;
-    border: none;
-  }
-
-  select {
-    margin-top: 0.7rem;
-    width: 8rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    font-size: 15px;
-  }
-
-  .reservation {
     margin: 2rem;
     margin-bottom: 3rem;
-    width: 6rem;
-    height: 1.8rem;
-    font-size: 0.8rem;
+    width: 17rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
     font-weight: 550;
     border-radius: 0.8rem;
     border: 1px solid #a5a5a5;
     background-color: #e08644;
     box-shadow: 0 5px 18px -7px #838383;
-  }
+    `;
+
+const Modal = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+
+    div {
+        background-color: #fff9f5;
+        width: 250px;
+        height: 200px;
+        padding: 5px;
+        border-radius: 0.5rem;
+    }
+
+    h3 {
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    .close {
+        cursor: pointer;
+        margin-left: 14.5rem;
+        font-size: 0.7rem;
+        color: #e08644;
+        background-color: #fff9f5;
+        border: none;
+    }
+
+    select {
+        margin-top: 0.7rem;
+        width: 8rem;
+        height: 2rem;
+        border-radius: 0.5rem;
+        font-size: 15px;
+    }
+
+    .reservation {
+        margin: 2rem;
+        margin-bottom: 3rem;
+        width: 6rem;
+        height: 1.8rem;
+        font-size: 0.8rem;
+        font-weight: 550;
+        border-radius: 0.8rem;
+        border: 1px solid #a5a5a5;
+        background-color: #e08644;
+        box-shadow: 0 5px 18px -7px #838383;
+    }
 `;
 
 const ConfirmModal = styled.div`
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
 
-  div {
-    background-color: #fff9f5;
-    width: 250px;
-    height: 200px;
-    padding: 5px;
-    border-radius: 0.5rem;
-  }
+    div {
+        background-color: #fff9f5;
+        width: 250px;
+        height: 200px;
+        padding: 5px;
+        border-radius: 0.5rem;
+    }
 
-  h3 {
-    margin: 0;
-    margin-top: 2rem;
-  }
+    h3 {
+        margin: 0;
+        margin-top: 2rem;
+    }
 
-  p {
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-  }
+    p {
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
 
-  button {
-    margin: 1rem;
-    margin-bottom: 1rem;
-    width: 4rem;
-    height: 1.8rem;
-    font-size: 0.8rem;
-    font-weight: 550;
-    border-radius: 0.8rem;
-    border: 1px solid #a5a5a5;
-    background-color: #e08644;
-    box-shadow: 0 5px 18px -7px #838383;
-  }
+    button {
+        margin: 1rem;
+        margin-bottom: 1rem;
+        width: 4rem;
+        height: 1.8rem;
+        font-size: 0.8rem;
+        font-weight: 550;
+        border-radius: 0.8rem;
+        border: 1px solid #a5a5a5;
+        background-color: #e08644;
+        box-shadow: 0 5px 18px -7px #838383;
+    }
 `;
+
+{/* <List>
+                    <p className='storename'>파리바게트</p>
+                    <img src={line} alt="" />
+                    {nums.map((num, index) => (
+                        <div className='items' key={index}>
+                            <div>
+                                <img className='photo' src={choco} alt="" />
+                                <h3>초코소라빵</h3>
+                                <div className='priceNum'>
+                                    <p>1,500원</p>
+                                    <Amount>
+                                        <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
+                                        <p>{num}</p>
+                                        <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
+                                    </Amount>
+                                </div>
+                            </div>
+                            <img src={line} alt="" />
+                        </div>
+                    ))}
+                </List> */}

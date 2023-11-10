@@ -18,7 +18,7 @@ function App() {
         <AnimatePresence>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/detail/:store_id" element={<Detail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

@@ -18,59 +18,42 @@ import plus from '../assets/plus.png'
 
 function Detail() {
     // 수량 및 로컬저장
-    const [nums, setNums] = useState([0, 0, 0, 0]);
+    const [nums, setNums] = useState([]);
 
-    const handleMinusClick = (index) => {
-        if (nums[index] > 0) {
-            const newNums = [...nums];
-            newNums[index] = nums[index] - 1;
-            setNums(newNums);
-
-            if (data && data.menu_list[index]) {
-                const selectedItem = {
-                    store_name: data.store_name,
-                    menu_img: data.menu_list[index].menu_img,
-                    menu_name: data.menu_list[index].menu_name,
-                    quantity: newNums[index],
-                    price: data.menu_list[index].price,
-                };
-
-                // 로컬 스토리지에서 해당 빵 정보 삭제
-                const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
-                const updatedItems = storedItems
-                    .map(item => (item.menu_name === selectedItem.menu_name ? selectedItem : item))
-                    .filter(item => item.quantity > 0);
-
-                localStorage.setItem('selectedItems', JSON.stringify(updatedItems));
-            }
-        }
-    };
-
-    const handlePlusClick = (index) => {
+    const updateQuantity = (index, newQuantity) => {
         const newNums = [...nums];
-        newNums[index] = nums[index] + 1;
+        newNums[index] = newQuantity;
         setNums(newNums);
-
+    
         if (data && data.menu_list[index]) {
             const selectedItem = {
                 store_name: data.store_name,
                 menu_img: data.menu_list[index].menu_img,
                 menu_name: data.menu_list[index].menu_name,
-                quantity: newNums[index],
+                quantity: newQuantity,
                 price: data.menu_list[index].price,
             };
-
-            // 로컬 스토리지에 데이터 추가 또는 갱신
+    
+            // Update or remove item in local storage
             const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
-            const updatedItems = storedItems.map(item => (item.menu_name === selectedItem.menu_name ? selectedItem : item));
-
-            if (!updatedItems.some(item => item.menu_name === selectedItem.menu_name)) {
-                updatedItems.push(selectedItem);
-            }
-
+            const updatedItems = storedItems
+                .map(item => (item.menu_name === selectedItem.menu_name ? selectedItem : item))
+                .filter(item => item.quantity > 0);
+    
             localStorage.setItem('selectedItems', JSON.stringify(updatedItems));
         }
     };
+    
+    const handleMinusClick = (index) => {
+        if (nums[index] > 0) {
+            updateQuantity(index, nums[index] - 1);
+        }
+    };
+    
+    const handlePlusClick = (index) => {
+        updateQuantity(index, nums[index] + 1);
+    };
+    
 
     // 모달
     const [modalOpen, setModalOpen] = useState(false);
@@ -86,13 +69,21 @@ function Detail() {
 
     // 데이터 변수
     const [data, setData] = useState(null);
-    const { bakeryId } = useParams();
+    const { store_id } = useParams();
 
     // 데이터 GET
     useEffect(() => {
-        axios.get('http://13.124.196.200:8081/api/bakery/${bakeryId}')
+        axios.get(`http://13.124.196.200:8081/api/bakery/${store_id}`)
             .then((response) => {
-                setData(response.data)
+                console.log(response.data)
+                // nums가 초기화되지 않았을 때만 초기화
+                if (!nums.length) {
+                    // 모든 빵의 개수를 0으로 초기화된 배열로 설정
+                    const initialNums = Array(response.data.result.menu_list.length).fill(0);
+                    setNums(initialNums);
+                }
+
+                setData(response.data.result);
             })
             .catch((error) => {
                 if (error.response) {
@@ -139,24 +130,10 @@ function Detail() {
                 </Header>
 
                 <Banner>
-                    <img src={banner} alt="banners" />
+                    {data && <img src={data.store_img} alt={data.store_name} />}
                 </Banner>
 
-                {/* <Banner>
-                    {data && <img src={data.store_img} alt={data.store_name} />}
-                </Banner> */}
-
                 <StoreInfo>
-                    <div>
-                        <img src={storelogo} alt="파바" />
-                        <span>파리바게트</span>
-                        <img className='heart' src={heart} alt="heart" />
-                    </div>
-                    <p>운영시간 : 매일 오전 10:00 ~ 오후 9:00</p>
-                    <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
-                </StoreInfo>
-
-                {/* <StoreInfo>
                     {data && (
                         <>
                             <div>
@@ -164,42 +141,22 @@ function Detail() {
                                 <span>{data.store_name}</span>
                                 <img className='heart' src={heart} alt="heart" />
                             </div>
-                            <p>운영시간: {data.operating_hours}</p>
-                            <p>주소: {data.address}</p>
+                            <p>운영시간: {data.open_time}</p>
+                            <p>주소: {data.location}</p>
                         </>
                     )}
-                </StoreInfo> */}
+                </StoreInfo>
 
                 <Breads>
-                    {nums.map((num, index) => (
-                        <Bread key={index}>
-                            <img src={choco} alt="bread" />
-                            <p>초코소라빵</p>
-                            <p className='num'>남은 수량: 2개</p>
-                            <div>
-                                <span>2,000원</span>
-                                <img className='arrow' src={arrow} alt="" />
-                                <span>1,500원</span>
-                            </div>
-                            <Amount>
-                                <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
-                                <p>{num}</p>
-                                <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
-                            </Amount>
-                        </Bread>
-                    ))}
-                </Breads>
-
-                {/* <Breads>
-                    {data && data.menu_list.map((menu, index) => (
+                    {data && data.menu_list && data.menu_list.map((menu, index) => (
                         <Bread key={index}>
                             <img src={menu.menu_img} alt={menu.menu_name} />
                             <p>{menu.menu_name}</p>
                             <p className='num'>남은 수량: {menu.quantity}개</p>
                             <div>
-                                <span>2,000원</span>
-                                <img className='arrow' src={arrow} alt="" />
                                 <span>{menu.price}원</span>
+                                <img className='arrow' src={arrow} alt="" />
+                                <span>{menu.discounted_price}원</span>
                             </div>
                             <Amount>
                                 <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
@@ -208,7 +165,7 @@ function Detail() {
                             </Amount>
                         </Bread>
                     ))}
-                </Breads> */}
+                </Breads>
 
                 <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
 

@@ -326,7 +326,7 @@ function Home() {
 
   // 빵집 박스 클릭하면 해당 id의 빵집 세부로 넘어가도록
   const onClickDetail = (store_id) => {
-    navigate(`/Detail/${store_id}`); // 해당 게시글의 ID를 URL에 포함하여 이동
+    navigate(`/detail/${store_id}`); // 해당 게시글의 ID를 URL에 포함하여 이동
   };
 
   return (
@@ -375,16 +375,19 @@ function Home() {
         <Town>우리 동네 빵집</Town>
         <ScrollBox>
           {datas.map((data) => (
-            <PostBox key={data.store_id} onClick={() => onClickDetail(data.id)}>
+            <PostBox
+              key={data.store_id}
+              onClick={() => onClickDetail(data.store_id)}
+            >
               <PostImg>
                 <img
-                  src={data.store_img}
+                  src={`${data.writerProfile}`}
                   alt="Profile"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
                 />
               </PostImg>
               <Name>{data.store_name}</Name>
-              <Address>{data.store_address}</Address>
+              <Address>{data.location}</Address>
             </PostBox>
           ))}
         </ScrollBox>
