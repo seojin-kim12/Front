@@ -12,6 +12,7 @@ import bv from "../assets/bv.png";
 import closingsale from "../assets/마감세일사진.png";
 import gift from "../assets/수능선물.jpg";
 import milk from "../assets/우유빵.png";
+import cart from "../assets/cart.png";
 
 const Top = styled.div`
   display: flex;
@@ -20,8 +21,8 @@ const Top = styled.div`
   margin-left: -250px;
 
   img {
-    width: 8.8rem;
-    height: 4.8rem;
+    width: 8rem;
+    height: 4.3rem;
   }
 `;
 
@@ -57,10 +58,10 @@ const Top = styled.div`
 
 const HomeImg = styled.div`
   position: relative;
-  left: 155px;
-  top: -55px;
+  left: 150px;
+  top: -47px;
   img {
-    width: 38px;
+    width: 30px;
     cursor: pointer;
   }
 `;
@@ -73,7 +74,7 @@ const Adver = styled.div`
   border-radius: 1rem;
   box-shadow: 1px 4px 6px rgba(102, 102, 102, 0.2);
   width: 22.2rem;
-  margin-top: -25px;
+  margin-top: -15px;
 
   div {
     display: flex;
