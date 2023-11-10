@@ -33,7 +33,50 @@ function Cart() {
 
     // 모달
     const [modalOpen, setModalOpen] = useState(false);
+    const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
     const modalBackground = useRef();
+
+    // 예약시간
+    const [selectedTime, setSelectedTime] = useState('');
+    const handleReservation = () => {
+        setModalOpen(false);
+        setConfirmationModalOpen(true);
+    };
+
+    // 데이터 변수
+    const [data, setData] = useState(null);
+
+    // 데이터
+    useEffect(() => {
+        axios.get('http://13.124.196.200:8081/api/reservations')
+            .then((response) => {
+                setData(response.data)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    // 예약 post
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     axios
+    //         .post('http://13.124.196.200:8081/api/reservations', {
+    //             userId: ,
+    //             storeId: bakeryId,
+    //             breadId: ,
+    //             breadType: ,
+    //             quantity: ,
+    //             pickUpTime: selectedTime 
+    //         })
+    //         .then((response) => {
+    //             navigate('/');
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // };
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -66,22 +109,34 @@ function Cart() {
                     ))}
                 </List>
                 <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
-                    {
-                    modalOpen &&
-                    <Modal ref={modalBackground} onClick={e => {
-                        if (e.target === modalBackground.current) {
-                            setModalOpen(false);
-                        }
-                    }}>
+                {modalOpen && (
+                    <Modal>
                         <div>
-                            <Link to={'/'}><button onClick={() => setModalOpen(false)}>X</button></Link>
-                            <h3>예약 완료</h3>
-                            <p className='time'>15분 후</p>
-                            <p>매장에 방문해주시길 바랍니다.</p>
+                            <Link to={'/'}><button className='close' onClick={() => setModalOpen(false)}>X</button></Link>
+                            <h3>예약시간</h3>
+                            <select
+                                value={selectedTime}
+                                onChange={(e) => setSelectedTime(e.target.value)}
+                            >
+                                <option value="10">10분 후</option>
+                                <option value="20">20분 후</option>
+                                <option value="30">30분 후</option>
+                            </select>
+                            <button className='reservation' onClick={handleReservation}>예약하기</button>
                         </div>
                     </Modal>
-                }
-                
+                )}
+                {confirmationModalOpen && (
+                    <ConfirmModal>
+                        <div>
+                            <h3>예약 완료</h3>
+                            <p>예약이 성공적으로 완료되었습니다!</p>
+                            <Link to={'/'}>
+                                <button className='close' onClick={() => setConfirmationModalOpen(false)}>확인</button>
+                            </Link>
+                        </div>
+                    </ConfirmModal>
+                )}
             </Container>
         </motion.div>
     );
@@ -221,7 +276,7 @@ const Modal = styled.div`
     div {
         background-color: #fff9f5;
         width: 250px;
-        height: 150px;
+        height: 200px;
         padding: 5px;
         border-radius: 0.5rem;
     }
@@ -231,21 +286,76 @@ const Modal = styled.div`
         margin-bottom: 1rem;
     }
 
-    .time {
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-
-    p {
-        margin: 0.5rem 0;
-    }
-
-    button {
+    .close {
         cursor: pointer;
         margin-left: 14.5rem;
         font-size: 0.7rem;
         color: #e08644;
         background-color: #fff9f5;
         border: none;
+    }
+
+    select {
+        margin-top: 0.7rem;
+        width: 8rem;
+        height: 2rem;
+        border-radius: 0.5rem;
+        font-size: 15px;
+    }
+
+    .reservation {
+        margin: 2rem;
+        margin-bottom: 3rem;
+        width: 6rem;
+        height: 1.8rem;
+        font-size: 0.8rem;
+        font-weight: 550;
+        border-radius: 0.8rem;
+        border: 1px solid #a5a5a5;
+        background-color: #e08644;
+        box-shadow: 0 5px 18px -7px #838383;
+    }
+`
+
+const ConfirmModal = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+
+    div {
+        background-color: #fff9f5;
+        width: 250px;
+        height: 200px;
+        padding: 5px;
+        border-radius: 0.5rem;
+    }
+
+    h3 {
+        margin: 0;
+        margin-top: 2rem;
+    }
+
+    p {
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    button {
+        margin: 1rem;
+        margin-bottom: 1rem;
+        width: 4rem;
+        height: 1.8rem;
+        font-size: 0.8rem;
+        font-weight: 550;
+        border-radius: 0.8rem;
+        border: 1px solid #a5a5a5;
+        background-color: #e08644;
+        box-shadow: 0 5px 18px -7px #838383;
     }
 `
