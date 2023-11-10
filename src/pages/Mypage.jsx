@@ -47,7 +47,7 @@ const Box = styled.div`
   width: 360px;
   height: 100px;
   border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 6px rgba(145, 145, 145, 0.2);
 `;
 
 const Profile = styled.div`
@@ -60,18 +60,18 @@ const Profile = styled.div`
 
 const Name = styled.div`
   color: #ff9633;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 650;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: -62px;
-  margin-left: 100px;
+  text-shadow: 2px 2px 4px rgba(161, 161, 161, 0.1);
+  margin-top: -58px;
+  margin-left: 105px;
   text-align: left;
 `;
 
 const Phone = styled.div`
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 4px;
-  margin-left: 102px;
+  margin-left: 105px;
   text-align: left;
 `;
 
@@ -127,8 +127,7 @@ const Name_b = styled.div`
   position: relative;
   top: -60px;
   left: 95px;
-  color: #000000;
-  font-size: 18px;
+  font-size: 15px;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
@@ -153,13 +152,12 @@ const Heart = styled.div`
 
 //하단 바
 const BottomBar = styled.div`
-  position: relative;
-  background-color: #fda85d;
-  height: 53.5px;
-  width: 100%;
-  box-shadow: 0px -4px 6px rgba(131, 131, 131, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
-  margin-top: 1.3rem;
-  bottom: -8px;
+  background-color: #fff7f0;
+  height: 52px;
+  width: 390px;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0px -4px 6px rgba(177, 177, 177, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
 `;
 
 const BottomName = styled.div`
@@ -174,17 +172,16 @@ const Content = styled.div`
   position: relative;
   margin-top: -45px;
   margin-left: 25px;
-  color: #fff;
+  color: #ff7803;
   font-size: 15px;
   font-weight: 550;
-  text-shadow: 2px 2px 4px rgba(83, 83, 83, 0.5);
+  text-shadow: 2px 2px 4px rgba(104, 104, 104, 0.5);
 `;
 
 const Content2 = styled.div`
   position: relative;
   margin-top: 3px;
   margin-left: 25px;
-  color: #fff;
   font-size: 11px;
 `;
 

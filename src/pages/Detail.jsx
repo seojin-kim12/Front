@@ -8,13 +8,14 @@ import styled from "styled-components";
 import back from '../assets/back.png'
 import logo from '../assets/logo_detail.png'
 import cart from '../assets/cart.png'
-import banner from '../assets/detailbanner.png'
-import storelogo from '../assets/storelogo.svg'
 import heart from '../assets/heart.png'
-import choco from '../assets/초코소라빵.png'
+import emptyheart from '../assets/emptyheart.png'
 import arrow from '../assets/arrow.png'
 import minus from '../assets/minus.png'
 import plus from '../assets/plus.png'
+// import banner from '../assets/detailbanner.png'
+// import storelogo from '../assets/storelogo.svg'
+// import choco from '../assets/초코소라빵.png'
 
 function Detail() {
     // 수량 및 로컬저장
@@ -24,36 +25,38 @@ function Detail() {
         const newNums = [...nums];
         newNums[index] = newQuantity;
         setNums(newNums);
-    
-        if (data && data.menu_list[index]) {
-            const selectedItem = {
-                store_name: data.store_name,
-                menu_img: data.menu_list[index].menu_img,
-                menu_name: data.menu_list[index].menu_name,
-                quantity: newQuantity,
-                price: data.menu_list[index].price,
-            };
-    
-            // Update or remove item in local storage
-            const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
-            const updatedItems = storedItems
-                .map(item => (item.menu_name === selectedItem.menu_name ? selectedItem : item))
-                .filter(item => item.quantity > 0);
-    
-            localStorage.setItem('selectedItems', JSON.stringify(updatedItems));
-        }
     };
-    
+
+    useEffect(() => {
+        if (data && data.menu_list) {
+            const updatedItems = data.menu_list.map((menu, index) => {
+                return {
+                    store_name: data.store_name,
+                    menu_img: menu.menu_img,
+                    menu_name: menu.menu_name,
+                    quantity: nums[index],
+                    price: menu.price,
+                };
+            });
+
+            // 수량이 0인 아이템 제거
+            const filteredItems = updatedItems.filter(item => item.quantity > 0);
+
+            // 로컬 스토리지에 저장할 때 store_id를 키로 사용
+            localStorage.setItem(`selectedItems_${store_id}`, JSON.stringify(filteredItems));
+        }
+    }, [nums]);
+
     const handleMinusClick = (index) => {
         if (nums[index] > 0) {
             updateQuantity(index, nums[index] - 1);
         }
     };
-    
+
     const handlePlusClick = (index) => {
         updateQuantity(index, nums[index] + 1);
     };
-    
+
 
     // 모달
     const [modalOpen, setModalOpen] = useState(false);
@@ -69,6 +72,7 @@ function Detail() {
 
     // 데이터 변수
     const [data, setData] = useState(null);
+    const [liked, setLiked] = useState();
     const { store_id } = useParams();
 
     // 데이터 GET
@@ -82,7 +86,7 @@ function Detail() {
                     const initialNums = Array(response.data.result.menu_list.length).fill(0);
                     setNums(initialNums);
                 }
-
+                setLiked(response.data.result.is_liked);
                 setData(response.data.result);
             })
             .catch((error) => {
@@ -98,6 +102,10 @@ function Detail() {
                 }
             });
     }, []);
+
+    const handleLikeClick = () => {
+        setLiked((prevLiked) => !prevLiked);
+    };
 
     // 예약 post
     // const handleSubmit = (e) => {
@@ -139,7 +147,10 @@ function Detail() {
                             <div>
                                 <img src={data.store_logo} alt={data.store_name} />
                                 <span>{data.store_name}</span>
-                                <img className='heart' src={heart} alt="heart" />
+                                {liked
+                                    ? <img className='heart' src={heart} alt="heart" onClick={handleLikeClick} />
+                                    : <img className='emptyheart' src={emptyheart} alt="emptyheart" onClick={handleLikeClick} />
+                                }
                             </div>
                             <p>운영시간: {data.open_time}</p>
                             <p>주소: {data.location}</p>
@@ -324,8 +335,16 @@ const Header = styled.header`
 
 const Banner = styled.div`
     width: 100%;
+    height: 11rem;
     margin: 0;
-    margin-top: 0.7rem;
+    margin-top: 1rem;
+
+    img{
+        width: 100%;
+        height: 11rem;
+        object-fit: cover;
+        margin: 0;
+    }
 `
 const StoreInfo = styled.div`
     width: 100%;
@@ -333,6 +352,7 @@ const StoreInfo = styled.div`
     flex-direction: column;
     font-size: 1.2rem;
     //background-color: #fff9f5;
+    padding-bottom: 1rem;
     margin-bottom: 0.5rem;
 
     p {
@@ -365,12 +385,12 @@ const StoreInfo = styled.div`
         }
     }
 
-    .heart {
+    .heart, .emptyheart {
         width: 24px;
         height: 24px;
         align-items: center;
         margin-left: 0.55rem;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.2rem;
 }
 `
 
@@ -393,8 +413,10 @@ const Bread = styled.div`
     border-radius: 1rem;
 
     img {
-        width: 8.3rem;
-        height: 8rem;
+        width: 7.3rem;
+        height: 7rem;
+        border-radius: 0.5rem;
+        margin-bottom: 0.6rem;
     }
 
     p {
@@ -412,12 +434,14 @@ const Bread = styled.div`
     .arrow {
         width: 13.5px;
         height: 6px;
+        margin-top: 0.3rem;
+        margin-bottom: 0.1rem;
     }
 
     span {
         font-size: 0.8rem;
         font-weight: 600;
-        margin: 0 0.2rem;
+        margin: 0 0.4rem;
     }
 `
 
@@ -439,6 +463,8 @@ const Amount = styled.div`
     img {
         width: 10px;
         height: 10px;
+        margin: 0;
+        margin-bottom: 0.2rem;
         padding: 0.5rem 1.5rem;
     }
 
