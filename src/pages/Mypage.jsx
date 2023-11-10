@@ -21,8 +21,8 @@ const Back = styled.header`
   img {
     margin-left: -320px;
     margin-top: -12px;
-    width: 20px;
-    height: 25px;
+    width: 14px;
+    height: 21px;
   }
 `;
 
@@ -30,13 +30,13 @@ const Logo = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -50px;
+  margin-top: -40px;
 
   img {
     margin-left: 2.7rem;
     margin-right: 2.7rem;
-    width: 8.8rem;
-    height: 4.8rem;
+    width: 5.8rem;
+    height: 3.4rem;
   }
 `;
 
@@ -47,7 +47,7 @@ const Box = styled.div`
   width: 360px;
   height: 100px;
   border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(145, 145, 145, 0.2);
+  box-shadow: 0px 4px 6px rgba(105, 105, 105, 0.2);
 `;
 
 const Profile = styled.div`
@@ -62,14 +62,14 @@ const Name = styled.div`
   color: #ff9633;
   font-size: 20px;
   font-weight: 650;
-  text-shadow: 2px 2px 4px rgba(161, 161, 161, 0.1);
+  text-shadow: 2px 2px 4px rgba(172, 172, 172, 0.1);
   margin-top: -58px;
   margin-left: 105px;
   text-align: left;
 `;
 
 const Phone = styled.div`
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 4px;
   margin-left: 105px;
   text-align: left;
@@ -111,7 +111,7 @@ const PostImg = styled.div`
 
 const ScrollBox = styled.div`
   width: 350px;
-  height: 525px;
+  height: 350px;
   margin-top: 0.2rem;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -125,8 +125,9 @@ const ScrollBox = styled.div`
 
 const Name_b = styled.div`
   position: relative;
-  top: -60px;
+  top: -55px;
   left: 95px;
+  color: #000000;
   font-size: 15px;
   font-style: normal;
   font-weight: bold;
@@ -136,21 +137,21 @@ const Name_b = styled.div`
 
 const Address = styled.div`
   position: relative;
-  top: -56px;
+  top: -52px;
   left: 95px;
   color: black;
-  font-size: 12px;
+  font-size: 11px;
   font-style: normal;
   line-height: normal;
   text-align: left;
 `;
 
 const Heart = styled.div`
-  margin-top: -105px;
-  margin-left: 285px;
+  margin-top: -108px;
+  margin-left: 305px;
 `;
 
-//하단 바
+// 하단바
 const BottomBar = styled.div`
   background-color: #fff7f0;
   height: 52px;
