@@ -17,7 +17,7 @@ import minus from '../assets/minus.png'
 import plus from '../assets/plus.png'
 
 function Detail() {
-    // 수량 
+    // 수량 및 로컬저장
     const [nums, setNums] = useState([0, 0, 0, 0]);
 
     const handleMinusClick = (index) => {
@@ -25,6 +25,24 @@ function Detail() {
             const newNums = [...nums];
             newNums[index] = nums[index] - 1;
             setNums(newNums);
+
+            if (data && data.menu_list[index]) {
+                const selectedItem = {
+                    store_name: data.store_name,
+                    menu_img: data.menu_list[index].menu_img,
+                    menu_name: data.menu_list[index].menu_name,
+                    quantity: newNums[index],
+                    price: data.menu_list[index].price,
+                };
+
+                // 로컬 스토리지에서 해당 빵 정보 삭제
+                const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+                const updatedItems = storedItems
+                    .map(item => (item.menu_name === selectedItem.menu_name ? selectedItem : item))
+                    .filter(item => item.quantity > 0);
+
+                localStorage.setItem('selectedItems', JSON.stringify(updatedItems));
+            }
         }
     };
 
@@ -32,6 +50,26 @@ function Detail() {
         const newNums = [...nums];
         newNums[index] = nums[index] + 1;
         setNums(newNums);
+
+        if (data && data.menu_list[index]) {
+            const selectedItem = {
+                store_name: data.store_name,
+                menu_img: data.menu_list[index].menu_img,
+                menu_name: data.menu_list[index].menu_name,
+                quantity: newNums[index],
+                price: data.menu_list[index].price,
+            };
+
+            // 로컬 스토리지에 데이터 추가 또는 갱신
+            const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+            const updatedItems = storedItems.map(item => (item.menu_name === selectedItem.menu_name ? selectedItem : item));
+
+            if (!updatedItems.some(item => item.menu_name === selectedItem.menu_name)) {
+                updatedItems.push(selectedItem);
+            }
+
+            localStorage.setItem('selectedItems', JSON.stringify(updatedItems));
+        }
     };
 
     // 모달
@@ -50,14 +88,23 @@ function Detail() {
     const [data, setData] = useState(null);
     const { bakeryId } = useParams();
 
-    // 데이터 get
+    // 데이터 GET
     useEffect(() => {
         axios.get('http://13.124.196.200:8081/api/bakery/${bakeryId}')
             .then((response) => {
                 setData(response.data)
             })
             .catch((error) => {
-                console.error(error);
+                if (error.response) {
+                    // 서버가 응답한 상태 코드가 2xx 범위를 벗어난 경우
+                    console.error('Server responded with a non-2xx status', error.response.data);
+                } else if (error.request) {
+                    // 요청은 보냈지만 응답을 받지 못한 경우
+                    console.error('No response received from the server', error.request);
+                } else {
+                    // 요청을 보내기 전에 발생한 오류
+                    console.error('Error before sending the request', error.message);
+                }
             });
     }, []);
 
@@ -95,6 +142,10 @@ function Detail() {
                     <img src={banner} alt="banners" />
                 </Banner>
 
+                {/* <Banner>
+                    {data && <img src={data.store_img} alt={data.store_name} />}
+                </Banner> */}
+
                 <StoreInfo>
                     <div>
                         <img src={storelogo} alt="파바" />
@@ -104,6 +155,20 @@ function Detail() {
                     <p>운영시간 : 매일 오전 10:00 ~ 오후 9:00</p>
                     <p>서울특별시 강북구 수유동 381-2 1층 1, 2호(수유동, 정암빌딩)</p>
                 </StoreInfo>
+
+                {/* <StoreInfo>
+                    {data && (
+                        <>
+                            <div>
+                                <img src={data.store_logo} alt={data.store_name} />
+                                <span>{data.store_name}</span>
+                                <img className='heart' src={heart} alt="heart" />
+                            </div>
+                            <p>운영시간: {data.operating_hours}</p>
+                            <p>주소: {data.address}</p>
+                        </>
+                    )}
+                </StoreInfo> */}
 
                 <Breads>
                     {nums.map((num, index) => (
@@ -124,6 +189,26 @@ function Detail() {
                         </Bread>
                     ))}
                 </Breads>
+
+                {/* <Breads>
+                    {data && data.menu_list.map((menu, index) => (
+                        <Bread key={index}>
+                            <img src={menu.menu_img} alt={menu.menu_name} />
+                            <p>{menu.menu_name}</p>
+                            <p className='num'>남은 수량: {menu.quantity}개</p>
+                            <div>
+                                <span>2,000원</span>
+                                <img className='arrow' src={arrow} alt="" />
+                                <span>{menu.price}원</span>
+                            </div>
+                            <Amount>
+                                <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
+                                <p>{nums[index]}</p>
+                                <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
+                            </Amount>
+                        </Bread>
+                    ))}
+                </Breads> */}
 
                 <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
 

@@ -13,162 +13,145 @@ import plus from "../assets/plus.png";
 import line from "../assets/line.png";
 
 function Cart() {
-  // 수량
-  const [nums, setNums] = useState([0, 0, 0, 0]);
+    // 수량 
+    const [nums, setNums] = useState([0, 0, 0, 0]);
 
-  const handleMinusClick = (index) => {
-    if (nums[index] > 0) {
-      const newNums = [...nums];
-      newNums[index] = nums[index] - 1;
-      setNums(newNums);
-    }
-  };
+    const handleMinusClick = (index) => {
+        if (nums[index] > 0) {
+            const newNums = [...nums];
+            newNums[index] = nums[index] - 1;
+            setNums(newNums);
+        }
+    };
 
-  const handlePlusClick = (index) => {
-    const newNums = [...nums];
-    newNums[index] = nums[index] + 1;
-    setNums(newNums);
-  };
+    const handlePlusClick = (index) => {
+        const newNums = [...nums];
+        newNums[index] = nums[index] + 1;
+        setNums(newNums);
+    };
 
-  // 모달
-  const [modalOpen, setModalOpen] = useState(false);
-  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
-  const modalBackground = useRef();
+    // 모달
+    const [modalOpen, setModalOpen] = useState(false);
+    const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+    const modalBackground = useRef();
 
-  // 예약시간
-  const [selectedTime, setSelectedTime] = useState("");
-  const handleReservation = () => {
-    setModalOpen(false);
-    setConfirmationModalOpen(true);
-  };
+    // 예약시간
+    const [selectedTime, setSelectedTime] = useState('');
+    const handleReservation = () => {
+        setModalOpen(false);
+        setConfirmationModalOpen(true);
+    };
 
-  // 데이터 변수
-  const [data, setData] = useState(null);
+    // 로컬데이터 GET
+    const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
 
-  // 데이터
-  useEffect(() => {
-    axios
-      .get("http://13.124.196.200:8081/api/reservations")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    // 예약 post
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
 
-  // 예약 post
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
+    //     axios
+    //         .post('http://13.124.196.200:8081/api/reservations', {
+    //             userId: ,
+    //             storeId: bakeryId,
+    //             breadId: ,
+    //             breadType: ,
+    //             quantity: ,
+    //             pickUpTime: selectedTime 
+    //         })
+    //         .then((response) => {
+    //             navigate('/');
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // };
 
-  //     axios
-  //         .post('http://13.124.196.200:8081/api/reservations', {
-  //             userId: ,
-  //             storeId: bakeryId,
-  //             breadId: ,
-  //             breadType: ,
-  //             quantity: ,
-  //             pickUpTime: selectedTime
-  //         })
-  //         .then((response) => {
-  //             navigate('/');
-  //         })
-  //         .catch((error) => {
-  //             console.error(error);
-  //         });
-  // };
+    return (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <Container>
+                <Header>
+                    <img src={back} alt="back" />
+                    <Link to={'/'}><img src={logo} alt="Bver" /></Link>
+                    <Link to={'/cart'}><img className='cart' src={cart} alt="cart" /></Link>
+                </Header>
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <Container>
-        <Header>
-          <img src={back} alt="back" />
-          <Link to={"/"}>
-            <img src={logo} alt="Bver" />
-          </Link>
-          <Link to={"/cart"}>
-            <img className="cart" src={cart} alt="cart" />
-          </Link>
-        </Header>
+                <List>
+                    <p className='storename'>파리바게트</p>
+                    <img src={line} alt="" />
+                    {nums.map((num, index) => (
+                        <div className='items' key={index}>
+                            <div>
+                                <img className='photo' src={choco} alt="" />
+                                <h3>초코소라빵</h3>
+                                <div className='priceNum'>
+                                    <p>1,500원</p>
+                                    <Amount>
+                                        <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
+                                        <p>{num}</p>
+                                        <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
+                                    </Amount>
+                                </div>
+                            </div>
+                            <img src={line} alt="" />
+                        </div>
+                    ))}
+                </List>
 
-        <List>
-          <p className="storename">파리바게트</p>
-          <img src={line} alt="" />
-          {nums.map((num, index) => (
-            <div className="items" key={index}>
-              <div>
-                <img className="photo" src={choco} alt="" />
-                <h3>초코소라빵</h3>
-                <div className="priceNum">
-                  <p>1,500원</p>
-                  <Amount>
-                    <img
-                      className="minus"
-                      src={minus}
-                      alt=""
-                      onClick={() => handleMinusClick(index)}
-                    />
-                    <p>{num}</p>
-                    <img
-                      src={plus}
-                      alt=""
-                      onClick={() => handlePlusClick(index)}
-                    />
-                  </Amount>
-                </div>
-              </div>
-              <img src={line} alt="" />
-            </div>
-          ))}
-        </List>
-        <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
-        {modalOpen && (
-          <Modal>
-            <div>
-              <Link to={"/"}>
-                <button className="close" onClick={() => setModalOpen(false)}>
-                  X
-                </button>
-              </Link>
-              <h3>예약시간</h3>
-              <select
-                value={selectedTime}
-                onChange={(e) => setSelectedTime(e.target.value)}
-              >
-                <option value="10">10분 후</option>
-                <option value="20">20분 후</option>
-                <option value="30">30분 후</option>
-              </select>
-              <button className="reservation" onClick={handleReservation}>
-                예약하기
-              </button>
-            </div>
-          </Modal>
-        )}
-        {confirmationModalOpen && (
-          <ConfirmModal>
-            <div>
-              <h3>예약 완료</h3>
-              <p>예약이 성공적으로 완료되었습니다!</p>
-              <Link to={"/"}>
-                <button
-                  className="close"
-                  onClick={() => setConfirmationModalOpen(false)}
-                >
-                  확인
-                </button>
-              </Link>
-            </div>
-          </ConfirmModal>
-        )}
-      </Container>
-    </motion.div>
-  );
-}
+                {/* <List>
+                    <p className='storename'>{storedItems.length > 0 ? storedItems[0].store_name : ''}</p>
+                    <img src={line} alt="" />
+                    {storedItems.map((item, index) => (
+                        <div className='items' key={index}>
+                            <div>
+                                <img className='photo' src={item.menu_img} alt={item.menu_name} />
+                                <h3>{item.menu_name}</h3>
+                                <div className='priceNum'>
+                                    <p>{item.price}원</p>
+                                    <Amount>
+                                        <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
+                                        <p>{item.quantity}</p>
+                                        <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
+                                    </Amount>
+                                </div>
+                            </div>
+                            <img src={line} alt="" />
+                        </div>
+                    ))}
+                </List> */}
+                
+                <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
+                {modalOpen && (
+                    <Modal>
+                        <div>
+                            <Link to={'/'}><button className='close' onClick={() => setModalOpen(false)}>X</button></Link>
+                            <h3>예약시간</h3>
+                            <select
+                                value={selectedTime}
+                                onChange={(e) => setSelectedTime(e.target.value)}
+                            >
+                                <option value="10">10분 후</option>
+                                <option value="20">20분 후</option>
+                                <option value="30">30분 후</option>
+                            </select>
+                            <button className='reservation' onClick={handleReservation}>예약하기</button>
+                        </div>
+                    </Modal>
+                )}
+                {confirmationModalOpen && (
+                    <ConfirmModal>
+                        <div>
+                            <h3>예약 완료</h3>
+                            <p>예약이 성공적으로 완료되었습니다!</p>
+                            <Link to={'/'}>
+                                <button className='close' onClick={() => setConfirmationModalOpen(false)}>확인</button>
+                            </Link>
+                        </div>
+                    </ConfirmModal>
+                )}
+            </Container>
+        </motion.div>
+    );
+};
 export default Cart;
 
 const Header = styled.header`
