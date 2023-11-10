@@ -153,12 +153,13 @@ const Heart = styled.div`
 
 //하단 바
 const BottomBar = styled.div`
-  background-color: rgba(255, 140, 0, 0.8);
-  height: 50px;
+  position: relative;
+  background-color: #fda85d;
+  height: 53.5px;
   width: 100%;
-  box-shadow: 0px -4px 6px rgba(88, 88, 88, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
+  box-shadow: 0px -4px 6px rgba(131, 131, 131, 0.2); /* Use a negative margin-top to create the shadow effect on the bottom bar. */
   margin-top: 1.3rem;
-  bottom: 0;
+  bottom: -8px;
 `;
 
 const BottomName = styled.div`
