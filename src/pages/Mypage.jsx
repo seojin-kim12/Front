@@ -10,6 +10,7 @@ import account from "../assets/account.svg";
 import bread from "../assets/bread.jpg";
 import heart from "../assets/Favorite.svg";
 import bv from "../assets/bv.png";
+import cart from "../assets/cart.png";
 
 const Back = styled.header`
   display: flex;
@@ -91,6 +92,17 @@ const Town = styled.div`
   text-align: left;
 `;
 
+const Reservation = styled.div`
+  position: relative;
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 360px;
+  height: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(143, 143, 143, 0.2);
+  text-decoration: none;
+`
+
 const PostBox = styled.div`
   position: relative;
   background-color: rgba(255, 255, 255, 0.5);
@@ -111,7 +123,7 @@ const PostImg = styled.div`
 
 const ScrollBox = styled.div`
   width: 350px;
-  height: 350px;
+  height: 440px;
   margin-top: 0.2rem;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -194,7 +206,11 @@ function Mypage() {
   };
 
   const handleDetailClick = () => {
-    navigate("/Detail");
+    navigate("/detail");
+  };
+
+  const handleCartClick = () => {
+    navigate("/cart");
   };
 
   return (
@@ -217,6 +233,11 @@ function Mypage() {
           <Name>김서진</Name>
           <Phone>서울특별시 성북구 화랑로13길 60</Phone>
         </Box>
+
+        <Reservation onClick={handleCartClick}><p>장바구니</p></Reservation>
+
+        <Reservation><p>예약목록 조회</p></Reservation>
+
         <TownName>김서진</TownName>
         <Town>님이 찜한 가게</Town>
         <ScrollBox>
