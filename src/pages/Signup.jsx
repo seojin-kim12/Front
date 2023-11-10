@@ -33,10 +33,19 @@ function Signup() {
             })
             .then((response) => {
                 // 회원가입이 성공했을 때의 처리
-                navigate('/signin');
+                navigate('/login');
             })
             .catch((error) => {
-                console.error(error);
+                if (error.response) {
+                    // 서버가 응답한 상태 코드가 2xx 범위를 벗어난 경우
+                    console.error('Server responded with a non-2xx status', error.response.data);
+                } else if (error.request) {
+                    // 요청은 보냈지만 응답을 받지 못한 경우
+                    console.error('No response received from the server', error.request);
+                } else {
+                    // 요청을 보내기 전에 발생한 오류
+                    console.error('Error before sending the request', error.message);
+                }
             });
     };
 

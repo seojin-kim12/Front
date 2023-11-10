@@ -43,19 +43,8 @@ function Cart() {
         setConfirmationModalOpen(true);
     };
 
-    // 데이터 변수
-    const [data, setData] = useState(null);
-
-    // 데이터
-    useEffect(() => {
-        axios.get('http://13.124.196.200:8081/api/reservations')
-            .then((response) => {
-                setData(response.data)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
+    // 로컬데이터 GET
+    const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
 
     // 예약 post
     // const handleSubmit = (e) => {
@@ -108,6 +97,29 @@ function Cart() {
                         </div>
                     ))}
                 </List>
+
+                {/* <List>
+                    <p className='storename'>{storedItems.length > 0 ? storedItems[0].store_name : ''}</p>
+                    <img src={line} alt="" />
+                    {storedItems.map((item, index) => (
+                        <div className='items' key={index}>
+                            <div>
+                                <img className='photo' src={item.menu_img} alt={item.menu_name} />
+                                <h3>{item.menu_name}</h3>
+                                <div className='priceNum'>
+                                    <p>{item.price}원</p>
+                                    <Amount>
+                                        <img className='minus' src={minus} alt="" onClick={() => handleMinusClick(index)} />
+                                        <p>{item.quantity}</p>
+                                        <img src={plus} alt="" onClick={() => handlePlusClick(index)} />
+                                    </Amount>
+                                </div>
+                            </div>
+                            <img src={line} alt="" />
+                        </div>
+                    ))}
+                </List> */}
+                
                 <Reservation onClick={() => setModalOpen(true)}>예약하기</Reservation>
                 {modalOpen && (
                     <Modal>

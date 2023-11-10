@@ -7,6 +7,9 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Mypage from "./pages/Mypage";
+//import firebase from '../public/firebaseConfig'
+
+
 
 function App() {
   return (
