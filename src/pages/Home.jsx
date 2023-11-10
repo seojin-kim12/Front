@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +9,9 @@ import logo from "../assets/logo.png";
 import account from "../assets/account.svg";
 import bread from "../assets/bread.jpg";
 import bv from "../assets/bv.png";
-import closingsale from '../assets/마감세일사진.png'
-import gift from '../assets/수능선물.jpg'
-import milk from '../assets/우유빵.png'
+import closingsale from "../assets/마감세일사진.png";
+import gift from "../assets/수능선물.jpg";
+import milk from "../assets/우유빵.png";
 
 const Top = styled.div`
   display: flex;
@@ -220,7 +221,6 @@ const Address = styled.div`
   text-align: left;
 `;
 
-
 //하단 바
 const BottomBar = styled.div`
   background-color: #fff7f0;
@@ -255,7 +255,6 @@ const Content2 = styled.div`
   margin-left: 25px;
   font-size: 11px;
 `;
-
 
 function Home() {
   const navigate = useNavigate();
@@ -299,6 +298,37 @@ function Home() {
 
   const currentAdvertisement = advertisements[currentAdvIndex];
 
+  // 백엔드 연동 axios.get
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://13.124.196.200:8081/api/bakery",
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        console.log("Received data from API:", response.data);
+        console.log(token);
+        setDatas(response.data.result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // 빵집 박스 클릭하면 해당 id의 빵집 세부로 넘어가도록
+  const onClickDetail = (store_id) => {
+    navigate(`/Detail/${store_id}`); // 해당 게시글의 ID를 URL에 포함하여 이동
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -309,11 +339,6 @@ function Home() {
         <Top>
           <img src={logo} alt="Bver" />
         </Top>
-        {/* <Write>
-          <p1 onClick={handleSignupClick}>회원가입</p1>
-          <p3>/</p3>
-          <p2 onClick={handleLoginClick}>로그인</p2>
-        </Write> */}
         <HomeImg>
           <Link to="/Mypage">
             <img src={account} alt="account" />
@@ -331,48 +356,8 @@ function Home() {
         </Adver>
 
         {/* 마감세일중인 빵집 */}
-        <Link to='/detail'><HeartTown>마감세일 중인 빵집</HeartTown></Link>
+        <HeartTown>마감세일 중인 빵집</HeartTown>
         <HeartBoxs>
-          <HeartBox>
-            <HeartImg>
-              <img
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </HeartImg>
-            <HeartName>오늘의 제빵소</HeartName>
-          </HeartBox>
-          <HeartBox>
-            <HeartImg>
-              <img
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </HeartImg>
-            <HeartName>오늘의 제빵소</HeartName>
-          </HeartBox>
-          <HeartBox>
-            <HeartImg>
-              <img
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </HeartImg>
-            <HeartName>오늘의 제빵소</HeartName>
-          </HeartBox>
-          <HeartBox>
-            <HeartImg>
-              <img
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </HeartImg>
-            <HeartName>오늘의 제빵소</HeartName>
-          </HeartBox>
           <HeartBox>
             <HeartImg>
               <img
@@ -385,57 +370,23 @@ function Home() {
           </HeartBox>
         </HeartBoxs>
 
+        {/* 이 부분 백엔드 연동중임 */}
         {/* 우리동네빵집 */}
         <Town>우리 동네 빵집</Town>
         <ScrollBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
-          <PostBox>
-            <PostImg>
-              <img
-                //   src={`${process.env.PUBLIC_URL}/images/imgupload_post1.svg`}
-                src={bread}
-                alt="Profile"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
-              />
-            </PostImg>
-            <Name>오늘의 제빵소</Name>
-            <Address>경기도 구리시 벌말로 128번길 13</Address>
-          </PostBox>
+          {datas.map((data) => (
+            <PostBox key={data.store_id} onClick={() => onClickDetail(data.id)}>
+              <PostImg>
+                <img
+                  src={data.store_img}
+                  alt="Profile"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }} // 이미지 크기와 픽셀 사용 방식 설정
+                />
+              </PostImg>
+              <Name>{data.store_name}</Name>
+              <Address>{data.store_address}</Address>
+            </PostBox>
+          ))}
         </ScrollBox>
 
         {/* 하단바 */}

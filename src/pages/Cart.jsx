@@ -1,17 +1,16 @@
-import axios from 'axios';
-import { Container } from '../styles/global';
+import axios from "axios";
+import { Container } from "../styles/global";
 import { motion } from "framer-motion";
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import back from '../assets/back.png'
-import logo from '../assets/logo_detail.png'
-import cart from '../assets/cart.png'
-import choco from '../assets/초코소라빵.png'
-import minus from '../assets/minus.png'
-import plus from '../assets/plus.png'
-import line from '../assets/line.png'
-
+import back from "../assets/back.png";
+import logo from "../assets/logo_detail.png";
+import cart from "../assets/cart.png";
+import choco from "../assets/초코소라빵.png";
+import minus from "../assets/minus.png";
+import plus from "../assets/plus.png";
+import line from "../assets/line.png";
 
 function Cart() {
     // 수량 
@@ -155,219 +154,218 @@ function Cart() {
 };
 export default Cart;
 
-
 const Header = styled.header`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
 
-    img {
-        margin-left: 3rem;
-        margin-right: 3rem;
-    }
+  img {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 
-    .cart {
-        width: 35px;
-        height: 35px;
-        padding-top: 0.6rem;
-    }
-`
+  .cart {
+    width: 35px;
+    height: 35px;
+    padding-top: 0.6rem;
+  }
+`;
 
 const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+  background-color: #fff7f0;
+  width: 390px;
+
+  .storename {
+    text-align: left;
+    padding-left: 2rem;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+
+  .items {
     display: flex;
     flex-direction: column;
-    margin-top: 1.5rem;
-    padding: 0.5rem;
-    background-color: #fff7f0;
-    width: 390px;
+  }
 
-    .storename {
-        text-align: left;
-        padding-left: 2rem;
-        font-size: 1.1rem;
-        margin: 0.5rem 0;
+  div {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      margin-left: 0.5rem;
+      margin-right: 4rem;
+      font-size: 15px;
+      font-weight: 500;
     }
+  }
 
-    .items {
-        display: flex;
-        flex-direction: column;
-    }
+  img {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
 
-    div {
-        display: flex;
-        align-items: center;
+  .photo {
+    width: 90px;
+    height: 90px;
+  }
 
-        h3 {
-            margin-left: 0.5rem;
-            margin-right: 4rem;
-            font-size: 15px;
-            font-weight: 500;
-        }
-    }
-
-    img {
-        margin-top: 0.2rem;
-        margin-bottom: 0.2rem;
-    }
-
-    .photo {
-        width: 90px;
-        height: 90px;
-    }
-
-    .priceNum {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        p {
-            margin: 0;
-            margin-left: 1rem;
-            margin-right: 1rem;
-            font-weight: 600;
-        }
-    }
-`
-
-const Amount = styled.div`
+  .priceNum {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #a5a5a5;
-    border-radius: 1rem;
-    width: 7rem;
-    height: 1.4rem;
-    margin-top: 0.5rem;
-    padding-top: 0.18rem;
+    flex-direction: column;
 
     p {
-        font-size: 1rem;
+      margin: 0;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      font-weight: 600;
     }
+  }
+`;
 
-    img {
-        width: 10px;
-        height: 10px;
-        padding: 0.5rem 0.5rem;
-        margin: 0;
-    }
+const Amount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #a5a5a5;
+  border-radius: 1rem;
+  width: 7rem;
+  height: 1.4rem;
+  margin-top: 0.5rem;
+  padding-top: 0.18rem;
 
-    .minus{
-        width: 12px;
-        height: 1px;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-`
+  p {
+    font-size: 1rem;
+  }
+
+  img {
+    width: 10px;
+    height: 10px;
+    padding: 0.5rem 0.5rem;
+    margin: 0;
+  }
+
+  .minus {
+    width: 12px;
+    height: 1px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+`;
 
 const Reservation = styled.button`
+  margin: 2rem;
+  margin-bottom: 3rem;
+  width: 17rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 550;
+  border-radius: 0.8rem;
+  border: 1px solid #a5a5a5;
+  background-color: #e08644;
+  box-shadow: 0 5px 18px -7px #838383;
+`;
+
+const Modal = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+
+  div {
+    background-color: #fff9f5;
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    border-radius: 0.5rem;
+  }
+
+  h3 {
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+
+  .close {
+    cursor: pointer;
+    margin-left: 14.5rem;
+    font-size: 0.7rem;
+    color: #e08644;
+    background-color: #fff9f5;
+    border: none;
+  }
+
+  select {
+    margin-top: 0.7rem;
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    font-size: 15px;
+  }
+
+  .reservation {
     margin: 2rem;
     margin-bottom: 3rem;
-    width: 17rem;
-    height: 2.5rem;
-    font-size: 1.2rem;
+    width: 6rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
     font-weight: 550;
     border-radius: 0.8rem;
     border: 1px solid #a5a5a5;
     background-color: #e08644;
     box-shadow: 0 5px 18px -7px #838383;
-`
-
-const Modal = styled.div`
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-
-    div {
-        background-color: #fff9f5;
-        width: 250px;
-        height: 200px;
-        padding: 5px;
-        border-radius: 0.5rem;
-    }
-
-    h3 {
-        margin: 0;
-        margin-bottom: 1rem;
-    }
-
-    .close {
-        cursor: pointer;
-        margin-left: 14.5rem;
-        font-size: 0.7rem;
-        color: #e08644;
-        background-color: #fff9f5;
-        border: none;
-    }
-
-    select {
-        margin-top: 0.7rem;
-        width: 8rem;
-        height: 2rem;
-        border-radius: 0.5rem;
-        font-size: 15px;
-    }
-
-    .reservation {
-        margin: 2rem;
-        margin-bottom: 3rem;
-        width: 6rem;
-        height: 1.8rem;
-        font-size: 0.8rem;
-        font-weight: 550;
-        border-radius: 0.8rem;
-        border: 1px solid #a5a5a5;
-        background-color: #e08644;
-        box-shadow: 0 5px 18px -7px #838383;
-    }
-`
+  }
+`;
 
 const ConfirmModal = styled.div`
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
 
-    div {
-        background-color: #fff9f5;
-        width: 250px;
-        height: 200px;
-        padding: 5px;
-        border-radius: 0.5rem;
-    }
+  div {
+    background-color: #fff9f5;
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    border-radius: 0.5rem;
+  }
 
-    h3 {
-        margin: 0;
-        margin-top: 2rem;
-    }
+  h3 {
+    margin: 0;
+    margin-top: 2rem;
+  }
 
-    p {
-        margin-top: 2rem;
-        margin-bottom: 1.5rem;
-    }
+  p {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+  }
 
-    button {
-        margin: 1rem;
-        margin-bottom: 1rem;
-        width: 4rem;
-        height: 1.8rem;
-        font-size: 0.8rem;
-        font-weight: 550;
-        border-radius: 0.8rem;
-        border: 1px solid #a5a5a5;
-        background-color: #e08644;
-        box-shadow: 0 5px 18px -7px #838383;
-    }
-`
+  button {
+    margin: 1rem;
+    margin-bottom: 1rem;
+    width: 4rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+    font-weight: 550;
+    border-radius: 0.8rem;
+    border: 1px solid #a5a5a5;
+    background-color: #e08644;
+    box-shadow: 0 5px 18px -7px #838383;
+  }
+`;
