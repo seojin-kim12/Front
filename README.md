@@ -17,7 +17,6 @@
 
 <img width="1000" alt="image" src="https://github.com/seojin-kim12/Front/assets/80455266/4b96bf50-81fc-4709-9a40-5b7b87d68b21"><br/>
 <img width="1000" alt="image" src="https://github.com/seojin-kim12/Front/assets/80455266/cbb45a0b-80b9-4c2e-a811-08f4af17d5dc"><br/>
-<img width="1038" alt="image" src="https://github.com/seojin-kim12/Front/assets/80455266/cd90aca0-1bce-497d-bf31-1944e0b6cea7">
 <img width="1000" alt="image" src="https://github.com/seojin-kim12/Front/assets/80455266/f1cc0c0b-5c55-4b1d-9108-9aa4243a3858"><br/>
 <img width="1000" alt="image" src="https://github.com/seojin-kim12/Front/assets/80455266/5d7f66e0-a72e-42ef-ba2e-473a2ce1a99f"><br/>
 <img width="1000" alt="image" src="https://github.com/seojin-kim12/Front/assets/80455266/16f0f26c-3b09-498a-b24d-d9719225ca91"><br/>
